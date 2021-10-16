@@ -3,7 +3,7 @@ import bottle
 import jinja2
 
 dto = {
-   "1000":["Spanish", "English", "Swedish", "German", "Chinese", "French"],
+#   "1000":["Spanish", "English", "Swedish", "German", "Chinese", "French"],
    "1001":["Hola","Hello", "Hallo","Hej","你好","Bonjour"],
    "1002":["Adiós","Goodbye","Auf Wiedersehen","Hej då","再见","Au revoir"],
    "1003":["Por favor","Please","Bitte","Snälla","请","S'il vous plaît"],
@@ -21,7 +21,7 @@ dto = {
 @bottle.route('/resource/<folder>/<filename>')
 def server_static(folder, filename):
 #   if filename in ["aquabutton.jpg","nh1.mp3","questionbox.jpg"]:
-   return bottle.static_file(filename, root='/var/www/wsgi/learner/resource/%s' % (folder))
+   return bottle.static_file(filename, root='/var/www/wsgi/dupie/resource/%s' % (folder))
 #   else:
 #      return bottle.abort(404, "File not found.")
 
@@ -30,7 +30,7 @@ def server_static(folder, filename):
 @bottle.route('/')
 def hello():
    quiz =  [dto[dtoindex][0] for dtoindex in dto]
-   file_loader = jinja2.FileSystemLoader("/var/www/wsgi/learner/template")
+   file_loader = jinja2.FileSystemLoader("/var/www/wsgi/dupie/template")
    env = jinja2.Environment(loader=file_loader)
    template = env.get_template('main.jinja2')
    DTO = {"questions":quiz}

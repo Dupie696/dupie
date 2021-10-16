@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, "/var/www/wsgi/learner/src")
+sys.path.insert(0, "/var/www/wsgi/dupie/src")
 import bottle
-import learner
+import dupie
 application = bottle.default_app()
