@@ -9,7 +9,7 @@ dto = {
    "1003":["Por favor","Please","Bitte","Snälla","请","S'il vous plaît"],
    "1004":["Gracias","Thank you","Danke","Tack","谢谢","Merci"],
    "1005":["Lo siento","Sorry","Entschuldigung","Ursäkta/Ledsen","不好意思","Pardon"],
-   "1006":["Salud","Bless you","Gesundheit","Prosit","?","?"],
+   "1006":["Salud","Bless you","Gesundheit","Prosit",None,None],
    "1007":["Sí","Yes","Ja","Ja","是的","Oui"],
    "1008":["No","No","Nein","nej","不","Non"],
    "1009":["Quién","Who","Wer","Vem","谁","Qui"],

@@ -13,4 +13,4 @@ Universal Multiple Choice Language Learner
 
 ## Installation
  * add below to /etc/httpd/conf/httpd.conf
- * WSGIScriptAlias / "/var/www/wsgi/Dupie/Dupie.wsgi"
+ * WSGIScriptAlias / "/var/www/wsgi/dupie/dupie.wsgi"
