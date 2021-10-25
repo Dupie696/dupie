@@ -60,3 +60,5 @@ if __name__ == "__main__":
    a = dupiebase()
    import pprint
    print(pprint.pformat(a.getVocabDump()))
+   for a in a.getVocabDump().values():
+       print (a['english'])

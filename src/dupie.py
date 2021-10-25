@@ -30,7 +30,9 @@ def server_static(folder, filename):
 #   else:
 #      return bottle.abort(404, "File not found.")
 
-
+@bottle.route('/ajax/test')
+def test():
+   return "this was a test"
 
 @bottle.route('/')
 def hello():
