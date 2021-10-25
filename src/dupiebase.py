@@ -42,7 +42,7 @@ class dupiebase:
         return dto
 
     def getVocabDump(self):
-        etl = self.query("SELECT * FROM dupie.vocabulary;")
+        etl = self.query("SELECT * FROM dupie.vocabulary where vocabulary_index = synonym ;")
 
         dto = {}
         for row in etl:

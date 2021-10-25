@@ -2,15 +2,43 @@
     <head>
         <style>
             td.QuestionBox {
-              background:url('resource/img/q.jpg'); 
+              background:url('resource/img/q.png'); 
               background-repeat: no-repeat; 
               background-size: 100% 100%;
               padding: 50px;"
               margin-left: auto;
-              margin-right: auto;            
+              margin-right: auto;
+              color: white;
+            
             } 
             td.AnswerButton {
-              background:url('resource/img/a.jpg'); 
+              background:url('resource/img/a.png'); 
+              background-repeat: no-repeat; 
+              background-size: 100% 100%;
+              padding: 20px;"
+              margin-left: auto;
+              margin-right: auto;
+              user-select: none;
+              -moz-user-select: none;
+              -khtml-user-select: none;
+              -webkit-user-select: none;
+              -o-user-select: none;
+            } 
+            td.AnswerButtonWRONG {
+              background:url('resource/img/aF.png'); 
+              background-repeat: no-repeat; 
+              background-size: 100% 100%;
+              padding: 20px;"
+              margin-left: auto;
+              margin-right: auto;
+              user-select: none;
+              -moz-user-select: none;
+              -khtml-user-select: none;
+              -webkit-user-select: none;
+              -o-user-select: none;
+            } 
+            td.AnswerButtonCORRECT {
+              background:url('resource/img/aT.png'); 
               background-repeat: no-repeat; 
               background-size: 100% 100%;
               padding: 20px;"
@@ -68,11 +96,17 @@ function test123()
                 sndquestion.onended = function() {
                     sndprompt2.play();            
                 };
+
+document.getElementById("answer4").className = "AnswerButtonCORRECT";
+document.getElementById("answer1").className = "AnswerButtonWRONG";
+
+
             }
       </script>
     </head>
 
     <table class="QuestionBox">
+<!-- 
         <tr id="questionText">
         </tr>
         <tr>
@@ -81,7 +115,7 @@ function test123()
 
             </td>
         </tr>
-
+-->
         <tr>
             <td class="QuestionBox" onclick="questionSoundFile('resource/nh1.mp3')">
                 ¿Cómo se dice 'sorry' en español? 
@@ -94,7 +128,7 @@ function test123()
                     <tr>
     {% for my_entry in range(DTO.questions|length) %}
                     
-                        <td class="AnswerButton" onclick="soundfile('resource/vocab/{{ my_entry + 1001 }}-es.mp3')"' align="center">
+                        <td id="answer{{ my_entry }}" class="AnswerButton" onclick="soundfile('resource/vocab/{{ my_entry + 1001 }}-es.mp3')"' align="center">
                             {{ DTO.questions[my_entry] }}
                         </td>
 
@@ -112,7 +146,7 @@ function test123()
                 </table>
             </td>
         </tr>
-
+<!--  
         <tr>
             <td align="center">
                 <button type="button">Audio</button>
@@ -120,6 +154,7 @@ function test123()
             </td>
         </tr>
     </table>
+--> 
 </HTML>
 
 
