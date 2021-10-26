@@ -1,120 +1,15 @@
 <HTML>
-    <head>
-        <style>
-            td.QuestionBox {
-              background:url('resource/img/q.png'); 
-              background-repeat: no-repeat; 
-              background-size: 100% 100%;
-              padding: 50px;"
-              margin-left: auto;
-              margin-right: auto;
-              color: white;
-            
-            } 
-            td.AnswerButton {
-              background:url('resource/img/a.png'); 
-              background-repeat: no-repeat; 
-              background-size: 100% 100%;
-              padding: 20px;"
-              margin-left: auto;
-              margin-right: auto;
-              user-select: none;
-              -moz-user-select: none;
-              -khtml-user-select: none;
-              -webkit-user-select: none;
-              -o-user-select: none;
-            } 
-            td.AnswerButtonWRONG {
-              background:url('resource/img/aF.png'); 
-              background-repeat: no-repeat; 
-              background-size: 100% 100%;
-              padding: 20px;"
-              margin-left: auto;
-              margin-right: auto;
-              user-select: none;
-              -moz-user-select: none;
-              -khtml-user-select: none;
-              -webkit-user-select: none;
-              -o-user-select: none;
-            } 
-            td.AnswerButtonCORRECT {
-              background:url('resource/img/aT.png'); 
-              background-repeat: no-repeat; 
-              background-size: 100% 100%;
-              padding: 20px;"
-              margin-left: auto;
-              margin-right: auto;
-              user-select: none;
-              -moz-user-select: none;
-              -khtml-user-select: none;
-              -webkit-user-select: none;
-              -o-user-select: none;
-            } 
-            table.QuestionBox{
-              text-align: center;
-              vertical-align: middle;
-              margin-left: auto;
-              margin-right: auto;
-            }
-            </style>
-        <script>
-function httpGet(theUrl)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
-}
-
-function test123()
-{
-    var strrr = httpGet("/ajax/test");
-    console.log(strrr);
-    document.getElementById("TestBox").innerHTML =strrr;
-    console.log(strrr);
-
-}
-
-            function soundfile(soundfile) {
-            document.getElementById("questionText").innerHTML =
-            "<audio autoplay><source src=" + soundfile + " type='audio/mp3'></audio> ";
-            }
-
-
-
-            function questionSoundFile(soundfile) {
-                var sndprompt1 = new Audio('resource/prompt/es-es-1.mp3');
-                var sndquestion = new Audio('resource/vocab/1005-en.mp3');
-                var sndprompt2 = new Audio('resource/prompt/es-es-2.mp3');
-
-                sndprompt1.play();            
-
-                sndprompt1.onended = function() {
-                    sndquestion.play();            
-                };
-
-                sndquestion.onended = function() {
-                    sndprompt2.play();            
-                };
-
-document.getElementById("answer4").className = "AnswerButtonCORRECT";
-document.getElementById("answer1").className = "AnswerButtonWRONG";
-
-
-            }
-      </script>
-    </head>
 
     <table class="QuestionBox">
         <tr id="questionText">
         </tr>
         <tr>
-<!-- 
+ 
             <td id="TestBox" onclick="test123()">
                 eh? 
 
             </td>
--->
+
         </tr>
         <tr>
             <td class="QuestionBox" onclick="questionSoundFile('resource/nh1.mp3')">

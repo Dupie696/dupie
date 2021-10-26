@@ -1,0 +1,51 @@
+<HTML>
+    <head>
+        <link rel="stylesheet" href="resource/html/styles.css">
+        <script type="text/javascript" src="resource/html/quiz.js"></script>
+    </head>
+<body>
+        {##    {% include 'users.j2' %} ##}
+
+
+
+<table class="quizBox">
+    <tr>
+        <td id="QuestionBox" class="QuestionBox"  onclick='questionSoundFile("{{ DTO.questiuonAudio[0] }}", "{{ DTO.questiuonAudio[1] }}","{{ DTO.questiuonAudio[2] }}")'>
+            Loading Question...
+        </td>
+    </tr>
+
+
+    <tr>
+        <td>
+            <table class="AnswerButton" align="center">
+                <tr>
+{% for my_entry in range(DTO.choices|length) %}
+                
+                    <td id="answer{{ my_entry }}" class="AnswerButton" onclick="selectAnswer({{ my_entry }},'{{ DTO.choicesAudio[my_entry] }}')"' align="center">
+                        {{ DTO.choices[my_entry] }}
+                    </td>
+
+    {% if (my_entry + 1) % 3 == 0 %}
+                </tr>
+    {% endif %}
+
+    {% if (my_entry + 1 != DTO.questions|length) %}
+        {% if (my_entry + 1) % 3 == 0 %}
+                <tr>
+        {% endif %}
+    {% endif %}                    
+{% endfor %}
+
+</table>
+<tr>
+    <td id="controlPanel" align="center" style="display:none;">
+        <button type="button" onclick='nextQuestion()'>Next</button>
+    </td>
+</tr>
+    </table>
+
+</body>
+
+</HTML>
+

@@ -60,5 +60,16 @@ if __name__ == "__main__":
    a = dupiebase()
    import pprint
    print(pprint.pformat(a.getVocabDump()))
+   counter = 1000
    for a in a.getVocabDump().values():
-       print (a['english'])
+       counter= counter+1
+#       print ('"%s",' % a['espanol']),
+#       print ('"%s-es.mp3",' % counter),
+       #print ('say %s -  %s ' % (counter,a['svenska'])),
+
+   a = dupiebase()
+   import pprint
+   counter = 1000
+   for a in a.getVocabDump().values():
+       counter= counter+1
+       print ('say %s -  %s ' % (counter,a['francais'])),
