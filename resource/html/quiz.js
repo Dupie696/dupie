@@ -38,7 +38,7 @@ function questionSoundFile(soundPrompt1,soundQuestion,soundPrompt2) {
 }
 
 function selectAnswer(ID,soundAnswer){
-    var sndAnswer = new Audio('/resource/vocab/' + soundAnswer);
+    var sndAnswer = new Audio('resource/vocab/' + soundAnswer);
     sndAnswer.play();
     
     //console.log(document.getElementById("controlPanel").style.display);
