@@ -45,9 +45,15 @@ def server_static(folder, filename,sessionID):
 #   else:
 #      return bottle.abort(404, "File not found.")
 
-@bottle.route('/ajax/test')
-def test():
-   return "this was a test"
+# @bottle.route('/ajax/test')
+# def test():
+#    return "this was a test"
+
+# @bottle.route('/<sessionID>/getTime')
+# def getTime(sessionID):
+#    import time
+#    seconds = time.time()
+#    return ("Seconds since epoch = %s" % seconds)	
 
 @bottle.route('/')
 def hello():
@@ -75,11 +81,6 @@ def StartSession(sessionID):
 
 
 
-@bottle.route('/<sessionID>/getTime')
-def getTime(sessionID):
-   import time
-   seconds = time.time()
-   return ("Seconds since epoch = %s" % seconds)	
 
 @bottle.route('/<sessionID>/getQuestion')
 def getQuestion(sessionID):

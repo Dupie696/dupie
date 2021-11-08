@@ -56,6 +56,15 @@ class dupiebase:
                 }
         return dto
 
+    def getLexiconETL(self,language1, language2):
+        return self.query("SELECT vocabulary_index, %s, %s FROM dupie.vocabulary where vocabulary_index = synonym and %s<>'' and %s<>'';" % (language1, language2, language1, language2))
+
+    def getQuestionFormat(self,language2):
+        return self.query("SELECT pre, post FROM dupie.prompt where `language` = '%s';" % (language2))
+        
+
+
+
 if __name__ == "__main__":
    a = dupiebase()
    import pprint
