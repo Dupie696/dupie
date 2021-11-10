@@ -81,4 +81,4 @@ if __name__ == "__main__":
    counter = 1000
    for a in a.getVocabDump().values():
        counter= counter+1
-       print ('say %s -  %s ' % (counter,a['francais'])),
+       print (' %s -  %s ' % (counter,a['english'])),

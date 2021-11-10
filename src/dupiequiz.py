@@ -17,12 +17,14 @@ import copy
 longtoshort = {
  "english":"en",
  "espanol":"es",
+ "nihon":"ja",
  "zhongwen":"zh"}
 
 
 shorttolong = {
  "en":"english",
  "es":"espanol",
+ "ja":"nihon",
  "zh":"zhongwen"}
 
 
@@ -36,6 +38,9 @@ class dupiequiz:
         self.language2 = language2
 
         self.questionIndex = 0
+
+    def nextQuestion(self):
+        self.questionIndex+=1
         
         
     def setQuestion(self,numofquestions):

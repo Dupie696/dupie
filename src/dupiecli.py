@@ -68,15 +68,34 @@ class dupiecli:
         
         userAnswer = _AnswerList[-1+int(self.printAnsweringBlock())]
 
-        self.testClass.checkAnswer(userAnswer)
+        print ()
+        if self.testClass.checkAnswer(userAnswer):
+            input ("You are correct!")
+        else:
+            input ("you are incorrect")
+        print ()
     
+    def nextQuestion(self):
+        self.testClass.nextQuestion()
+
+    def startGame(self):
+        pass
 
 
 if __name__ == "__main__":
 #    testClass = dupiecli("english","zhongwen",3,3)
 #    testClass = dupiecli("english","english",3,3)
-    testClass = dupiecli("espanol","espanol",3,3)
+#    testClass = dupiecli("espanol","espanol",3,3)
+    #testClass = dupiecli("english","espanol",3,3)
+    testClass = dupiecli("nihon","english",3,3)
+    
 
     
 
+    testClass.printQuizQuestion()
+    testClass.nextQuestion()
+    testClass.printQuizQuestion()
+    testClass.nextQuestion()
+    testClass.printQuizQuestion()
+    testClass.nextQuestion()
     testClass.printQuizQuestion()
