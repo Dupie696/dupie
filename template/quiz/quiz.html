@@ -1,5 +1,6 @@
-<HTML>
+<HTML class="notranslate" translate="no">
     <head>
+        <meta name="google" content="notranslate">
         <link rel="stylesheet" href="resource/html/styles.css">
         <script type="text/javascript" src="resource/html/quiz.js"></script>
     </head>
@@ -10,7 +11,7 @@
 
 <table class="quizBox">
     <tr>
-        <td id="QuestionBox" class="QuestionBox"  onclick='questionSoundFile("{{ DTO.questiuonAudio[0] }}", "{{ DTO.questiuonAudio[1] }}","{{ DTO.questiuonAudio[2] }}")'>
+        <td id="QuestionBox" class="QuestionBox"  onclick='questionSoundFile("{{ DTO.questionAudio[0] }}", "{{ DTO.questionAudio[1] }}","{{ DTO.questionAudio[2] }}")'>
             Loading Question...
         </td>
     </tr>
@@ -21,7 +22,6 @@
             <table class="AnswerButton" align="center">
                 <tr>
 {% for my_entry in range(DTO.choices|length) %}
-                
                     <td id="answer{{ my_entry }}" class="AnswerButton" onclick="selectAnswer({{ my_entry }},'{{ DTO.choicesAudio[my_entry] }}')"' align="center">
                         {{ DTO.choices[my_entry] }}
                     </td>

@@ -86,8 +86,8 @@ if __name__ == "__main__":
 #    testClass = dupiecli("english","zhongwen",3,3)
 #    testClass = dupiecli("english","english",3,3)
 #    testClass = dupiecli("espanol","espanol",3,3)
-    #testClass = dupiecli("english","espanol",3,3)
-    testClass = dupiecli("nihon","english",3,3)
+    testClass = dupiecli("english","hangugeo",3,3)
+    # testClass = dupiecli("nihon","english",3,3)
     
 
     

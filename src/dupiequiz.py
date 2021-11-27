@@ -18,14 +18,16 @@ longtoshort = {
  "english":"en",
  "espanol":"es",
  "nihon":"ja",
- "zhongwen":"zh"}
+ "zhongwen":"zh",
+ "hangugeo":"ko"}
 
 
 shorttolong = {
  "en":"english",
  "es":"espanol",
  "ja":"nihon",
- "zh":"zhongwen"}
+ "zh":"zhongwen",
+ "ko":"hangugeo"}
 
 
 class dupiequiz:
@@ -41,6 +43,7 @@ class dupiequiz:
 
     def nextQuestion(self):
         self.questionIndex+=1
+        return (self.questionIndex < self.numofanswers)
         
         
     def setQuestion(self,numofquestions):

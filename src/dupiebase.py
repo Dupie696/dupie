@@ -21,7 +21,7 @@ class dupiebase:
 
     def query(self,query):
         sql_cursor = self.conn.cursor()
-
+        print ("\n\n %s \n\n\n" % query)
         sql_cursor.execute(query)
         sql_field_names = [i[0] for i in sql_cursor.description]
 
