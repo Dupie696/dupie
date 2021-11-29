@@ -1,7 +1,17 @@
 import mysql.connector
 
+
+longtoshort = {
+ "english":"en",
+ "espanol":"es",
+ "nihon":"ja",
+ "zhongwen":"zh",
+ "hangugeo":"ko"}
+
+
 class dupiebase:
     def __init__(self):
+        # setups database connection
         try:
             self.conn = mysql.connector.connect(
                 user="dupie",
@@ -21,7 +31,6 @@ class dupiebase:
 
     def query(self,query):
         sql_cursor = self.conn.cursor()
-        print ("\n\n %s \n\n\n" % query)
         sql_cursor.execute(query)
         sql_field_names = [i[0] for i in sql_cursor.description]
 
@@ -56,11 +65,42 @@ class dupiebase:
                 }
         return dto
 
-    def getLexiconETL(self,language1, language2):
-        return self.query("SELECT vocabulary_index, %s, %s FROM dupie.vocabulary where vocabulary_index = synonym and %s<>'' and %s<>'';" % (language1, language2, language1, language2))
+    def getLexiconETL(self,questionlanguage, answerlanguage):
+        xdto = {
+            "questionlanguage": questionlanguage,
+            "answerlanguage": answerlanguage,
+            "shortquestionlanguage": longtoshort[questionlanguage],
+            "shortanswerlanguage": longtoshort[answerlanguage]
+            }
+        dto = (
+            self.query("SELECT vocabulary_index, %(questionlanguage)s ""question"", %(answerlanguage)s ""answer"" FROM dupie.vocabulary where vocabulary_index = synonym and %(questionlanguage)s<>'' and %(answerlanguage)s<>'';" % xdto )
+        )
 
-    def getQuestionFormat(self,language2):
-        return self.query("SELECT pre, post FROM dupie.prompt where `language` = '%s';" % (language2))
+        for x in range(0, len(dto)):
+            xdto["index"] = dto[x]["vocabulary_index"]
+
+            dto[x]["answer_audio"] = "%(index)s-%(shortanswerlanguage)s.mp3" % xdto
+            dto[x]["question_audio"] = "%(index)s-%(shortquestionlanguage)s.mp3" % xdto
+
+
+
+
+        return dto
+
+    def getQuestionFormat(self,answerlanguage):
+        dto = {"answerlanguage": answerlanguage}
+
+        dto.update(
+            self.query("SELECT pre, post FROM dupie.prompt where `language` = '%(answerlanguage)s';" % dto)[0]
+        )
+
+        dto.update(
+            {
+                "pre_audio": "%(answerlanguage)s-%(answerlanguage)s-1.mp3" % dto,
+                "post_audio": "%(answerlanguage)s-%(answerlanguage)s-2.mp3" % dto
+            }
+        )
+        return dto
         
 
 
@@ -68,17 +108,20 @@ class dupiebase:
 if __name__ == "__main__":
    a = dupiebase()
    import pprint
-   print(pprint.pformat(a.getVocabDump()))
-   counter = 1000
-   for a in a.getVocabDump().values():
-       counter= counter+1
-#       print ('"%s",' % a['espanol']),
-#       print ('"%s-es.mp3",' % counter),
-       #print ('say %s -  %s ' % (counter,a['svenska'])),
+   print (pprint.pformat(a.getQuestionFormat("zh")))   
+   print (pprint.pformat(a.getLexiconETL("english","zhongwen")))   
 
-   a = dupiebase()
-   import pprint
-   counter = 1000
-   for a in a.getVocabDump().values():
-       counter= counter+1
-       print (' %s -  %s ' % (counter,a['english'])),
+#    print(pprint.pformat(a.getVocabDump()))
+#    counter = 1000
+#    for a in a.getVocabDump().values():
+#        counter= counter+1
+# #       print ('"%s",' % a['espanol']),
+# #       print ('"%s-es.mp3",' % counter),
+#        #print ('say %s -  %s ' % (counter,a['svenska'])),
+#    a = dupiebase()
+#    import pprint
+#    counter = 1000
+#    for a in a.getVocabDump().values():
+#        counter= counter+1
+#        print (' %s -  %s ' % (counter,a['english'])),
+    

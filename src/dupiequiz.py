@@ -31,14 +31,18 @@ shorttolong = {
 
 
 class dupiequiz:
+    questions = []
+    lexicon = []
+    prompt = {}
+    numofanswers = 0
+
     def __init__(self,language1,language2,numofquestions,numofanswers):
+        # master list of words
         self.lexicon = self.getLexicon(language1,language2)
         self.questions = self.setQuestion(numofquestions)
         self.prompt = self.getPrompt(language2)
-        self.numofanswers = numofanswers
-        self.language1 = language1
-        self.language2 = language2
 
+        self.numofanswers = numofanswers
         self.questionIndex = 0
 
     def nextQuestion(self):
@@ -71,20 +75,20 @@ class dupiequiz:
         _answerlist = copy.deepcopy(self.lexicon)
         random.shuffle(_answerlist)
         del _answerlist[self.numofanswers:]
-        #print ("answerlist: %s " % _answerlist)
-        _answerFound = self.checkAnswerListForCorrectAnswer(self.questionIndex, _answerlist,self.language2)
+        _answerFound = self.checkAnswerListForCorrectAnswer(self.questionIndex, _answerlist)
         return _answerlist, _answerFound
 
-    def checkAnswerListForCorrectAnswer(self, questionIndex, answerlist, language2):
+    def checkAnswerListForCorrectAnswer(self, questionIndex, answerlist):
         _ansnwerFound = False
-        _answer = self.questions[questionIndex][language2]
+        print (self.questions)
+        _answer = self.questions[questionIndex]["answer"]
         for x in answerlist:
-            if _answer == x[language2]:
+            if _answer == x["answer"]:
                 _ansnwerFound = True
         return _ansnwerFound
 
     def checkAnswer(self, userAnswer):
-        return (userAnswer == self.questions[self.questionIndex][self.language2])
+        return (userAnswer == self.questions[self.questionIndex]["answer"])
 
 
     def getQuestion(self):
@@ -92,11 +96,12 @@ class dupiequiz:
 
 
 if __name__ == "__main__":
-    testClass = dupiequiz("english","espanol",2,2)
+    testClass = dupiequiz("english","zhongwen",2,2)
     print(testClass.lexicon)
     print(testClass.questions)
     print("="*11)
     print(testClass.prompt)
     print(testClass.getQuestion())
+    #print (testClass.questions)
 
     pass
