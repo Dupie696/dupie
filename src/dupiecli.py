@@ -4,6 +4,8 @@ import time
 class dupiecli(dupiegame.dupiegame):
     def printQuizQuestion(self):
         # makes an question shuffling animation
+
+        #print(self.getAnswerListAnimation()); exit(0)
         for x in self.getAnswerListAnimation():
             self.printQuestion()
             self.printAnswerList(x)
@@ -13,6 +15,8 @@ class dupiecli(dupiegame.dupiegame):
         self.printQuestion()
         # prints final answer list
         _AnswerList = (self.getAnswerList())
+
+        #print (_AnswerList); exit(0)
         self.printAnswerList(self.getAnswerList())
 
         # gets user input and corresponding answer
@@ -20,7 +24,7 @@ class dupiecli(dupiegame.dupiegame):
 
         # provides user feedback if answer is correct or not
         print ()
-        if self.quiz.checkAnswer(userAnswer["answer"]):
+        if self.quiz.checkAnswer(userAnswer["ANSWER"]):
             input ("You are correct!")
         else:
             input ("you are incorrect")
@@ -47,9 +51,10 @@ class dupiecli(dupiegame.dupiegame):
     def printAnswerList(self,_AnswerList):
         # formats and populates the answer list
         _counter = 0
+        #print (_AnswerList)
         for x in _AnswerList:
             _counter+=1
-            print((" %s) %s " % (_counter, x["answer"])).center(40, " "), end='')
+            print((" %s) %s " % (_counter, x["ANSWER"])).center(40, " "), end='')
             if not _counter % 3:
                 print()
 
@@ -57,6 +62,7 @@ class dupiecli(dupiegame.dupiegame):
         # user input checking
         _answer = ""
         _answers = [str(i) for i in range(1,self.numofanswers+1)]
+        #print(self.numofanswers)
 
         # loops until input is within the number of questions
         while (not _answer in _answers):
@@ -66,7 +72,7 @@ class dupiecli(dupiegame.dupiegame):
 
 
 if __name__ == "__main__":
-    quiz = dupiecli("english","zhongwen",3,3)
+    quiz = dupiecli(numofanswers=True,loadfromDBIndex=1001)
 #    quiz = dupiecli("english","english",3,3)
 #    quiz = dupiecli("espanol","espanol",3,3)
     #quiz = dupiecli("english","hangugeo",3,3)

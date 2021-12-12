@@ -1,9 +1,9 @@
 import sys
 import bottle
 import jinja2
-import dupiebase
-import dupiequiz
-
+#import dupiebase
+#import dupiequiz
+import dupiegame
 
 longtoshort = {
  "english":"en",
@@ -13,15 +13,15 @@ longtoshort = {
  "hangugeo":"ko"
  }
 
-global sessionsClass
+#global sessionsClass
 
-class dupieweb:
-   def __init__(self,language1,language2,numofquestions,numofanswers):
-      self.quiz = dupiequiz.dupiequiz(language1,language2,numofquestions,numofanswers)
-      self.language1 = language1
-      self.language2 = language2
-      self.numofanswers = numofanswers
-      self.numofquestions = numofquestions
+class dupieweb(dupiegame.dupiegame):
+   # def __init__(self,language1,language2,numofquestions,numofanswers):
+   #    self.quiz = dupiequiz.dupiequiz(language1,language2,numofquestions,numofanswers)
+   #    self.language1 = language1
+   #    self.language2 = language2
+   #    self.numofanswers = numofanswers
+   #    self.numofquestions = numofquestions
 
    def nextQuestion(self):
       return self.quiz.nextQuestion()
@@ -78,7 +78,7 @@ sessions[101] = {
 }
 
 
-dto = dupiebase.dupiebase().getVocabDump()
+#dto = dupiebase.dupiebase().getVocabDump()
 
 
 
@@ -139,7 +139,8 @@ def checkAnswer(sessionID,SelectedAnswer):
 
 
 
-sessionsClass = dupieweb("english","espanol",9,9)
+sessionsClass = dupieweb(numofanswers=True,loadfromDBIndex=1001)
+#sessionsClass = dupieweb("english","espanol",9,9)
 #sessionsClass = dupieweb("nihon","hangugeo",9,9)
 #sessionsClass = dupieweb("zhongwen","hangugeo",3,3)
 
