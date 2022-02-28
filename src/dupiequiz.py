@@ -1,53 +1,42 @@
+# SessionInfo
+# {
+#  'LANG_ANSWER': 'ZH',
+#  'LANG_QUESTION': 'EN',
+#
+#  'QUESTIONS': 3,
+#  'ANSWERS': 6,
+#  'SHUFFLES': 10,
+#
+#  'QUESTION_INDEX': 0,
+#  'SESSIONID': 1001,
+#
+#  'FRIENDLYNAME': 'Kelly',
+#  'UID': 101,
 
-# sessions[101] = {
-#    "question": "sorry",
-#    "prompt1": "¿Cómo se dice",
-#    "prompt2": "en español?",
+# Questions
+# [{'ANSWER': '什么',
+#   'ANSWER_AUDIO': '1010-zh.mp3',
+#   'QUESTION': 'What',
+#   'QUESTION_AUDIO': '1010-en.mp3',
+#   'QUIZQUESTION_INDEX': 0,
+#   'VOCABULARY_INDEX': 1010},
+#  ...
+#  {'ANSWER': '不',
+#   'ANSWER_AUDIO': '1008-zh.mp3',
+#   'QUESTION': 'No',
+#   'QUESTION_AUDIO': '1008-en.mp3',
+#   'QUIZQUESTION_INDEX': 2,
+#   'VOCABULARY_INDEX': 1008}]
 
-#    "answer": "Lo siento",
-#    "choices": ["Hola","Adiós","Por favor","Gracias","Lo siento","Salud","Sí","No","Quién","Qué","Por qué","Dónde"],
-#    "choicesAudio":["1001-es.mp3","1002-es.mp3","1003-es.mp3","1004-es.mp3","1005-es.mp3","1006-es.mp3","1007-es.mp3","1008-es.mp3","1009-es.mp3","1010-es.mp3","1011-es.mp3","1012-es.mp3"],
-#    "questiuonAudio": ["es-es-1.mp3","1005-en.mp3","es-es-2.mp3"]
 
-# }
+
+
 import dupiebase
 import random
 import copy
+import pprint
 
-shorttolong = {
- "EN":"english",
- "ES":"espanol",
- "JA":"nihon",
- "ZH":"zhongwen",
- "KO":"hangugeo",    
- "en":"english",
- "es":"espanol",
- "ja":"nihon",
- "zh":"zhongwen",
- "ko":"hangugeo",
- "english":"english",
- "espanol":"espanol",
- "nihon":"nihon",
- "zhongwen":"zhongwen",
- "hangugeo":"hangugeo"}
-
-longtoshort = {
- "english":"en",
- "espanol":"es",
- "nihon":"ja",
- "zhongwen":"zh",
- "hangugeo":"ko",
- "en":"en",
- "es":"es",
- "ja":"ja",
- "zh":"zh",
- "ko":"ko",
- "EN":"en",
- "ES":"es",
- "JA":"ja",
- "ZH":"zh",
- "KO":"ko"}
-
+db = dupiebase.dupiebase()
 
 class dupiequiz:
     questions = []
@@ -55,47 +44,37 @@ class dupiequiz:
     prompt = {}
     numofanswers = 0
 
-    def __init__(self,language1=None,language2=None,numofquestions=None,numofanswers=None,loadfromDBIndex=0):
+    def __init__(self,questionlanguage=None,answerlanguage=None,numofquestions=None,numofanswers=None,loadfromDBIndex=0,quickload=False):
         # master list of words
-        #loadfromDBIndex = True
-        if (loadfromDBIndex):
-            db = dupiebase.dupiebase()
-            _dto = db.getSessionInfo(1001)
-
-
-            self.numofanswers = int(_dto["ANSWERS"])
-            self.questionIndex = int(_dto["QUESTION_INDEX"])
-            self.language1 = _dto["LANG_QUESTION"]
-            self.language2 = _dto["LANG_ANSWER"]
-
-            self.questions = db.getQuestionList(1001)
-            self.answerlist = db.getAnswerList(1001)
-            self.answerlistanimation = db.getAnswerListAnimation(1001)
+        if not quickload:
+            if (loadfromDBIndex):
             
-            #import pprint
-            #print( pprint.pformat(self.questions))
+                LoadedSessionDTO = db.getSessionInfo(1001)
 
 
+                self.numofanswers = int(LoadedSessionDTO["ANSWERS"])
+                self.questionIndex = int(LoadedSessionDTO["QUESTION_INDEX"])
+                self.questionlanguage = LoadedSessionDTO["LANG_QUESTION"]
+                self.answerlanguage = LoadedSessionDTO["LANG_ANSWER"]
 
+                self.questions = db.getQuestionList(1001)
 
+                self.answerlist = db.getAnswerList(1001)
+                self.answerlistanimation = db.getAnswerListAnimation(1001)
+                print (pprint.pformat(self.answerlist))
+
+            else:
+                self.numofanswers = numofanswers
+                self.questionIndex = 0
+                self.questionlanguage = questionlanguage
+                self.answerlanguage = answerlanguage
+
+                self.lexicon = self.getLexicon(questionlanguage,answerlanguage)
+                self.questions = self.setQuestion(numofquestions)
+
+            self.prompt = self.getPrompt(self.answerlanguage)
         else:
-            self.numofanswers = numofanswers
-            self.questionIndex = 0
-            self.language1 = language1
-            self.language2 = language2
-
-            self.lexicon = self.getLexicon(language1,language2)
-            self.questions = self.setQuestion(numofquestions)
-
-        self.prompt = self.getPrompt(self.language2)
-
-        self._langDTO = {
-            "languageshort1": longtoshort[self.language1],
-            "languageshort2": longtoshort[self.language2],
-            "languagelong1": shorttolong[self.language1],
-            "languagelong2": shorttolong[self.language2],
-            }
-
+            pass
 
     def nextQuestion(self):
         self.questionIndex+=1
@@ -110,18 +89,18 @@ class dupiequiz:
         
 
 
-    def getLexicon(self,language1,language2):
+    def getLexicon(self,questionlanguage,answerlanguage):
 
 
         db = dupiebase.dupiebase()
-        _lexicon = db.getLexiconETL(language1,language2)
+        _lexicon = db.getLexiconETL(questionlanguage,answerlanguage)
         random.shuffle(_lexicon)
 
         return (_lexicon)
     
-    def getPrompt(self,language2):
+    def getPrompt(self,answerlanguage):
         db = dupiebase.dupiebase()
-        return (db.getQuestionFormat(longtoshort[language2]))
+        return (db.getQuestionFormat(answerlanguage))
 
     def getAnswerList(self):
         _answerlist = copy.deepcopy(self.lexicon)
@@ -147,6 +126,8 @@ class dupiequiz:
     def getQuestion(self):
         return self.questions[self.questionIndex]
    
+
+
 
 
 
@@ -201,6 +182,10 @@ class dupiequiz:
 
         self.answerlistanimation = DTO_LIST
         return DTO_LIST
+
+    def loadQuestion(self, uid, sessionid):
+        return db.getUserSession(uid, sessionid)
+        pass
     
 
 if __name__ == "__main__":
@@ -246,5 +231,10 @@ if __name__ == "__main__":
         #print(pprint.pformat(db.getSessionInfo(1001)))
 
 
-    test_save()
+    #test_load()
     pass
+    def quickload():
+        testClass = dupiequiz(quickload=True)
+        print (testClass.loadQuestion(101,1001))
+
+    quickload()

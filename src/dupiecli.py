@@ -5,7 +5,6 @@ class dupiecli(dupiegame.dupiegame):
     def printQuizQuestion(self):
         # makes an question shuffling animation
 
-        #print(self.getAnswerListAnimation()); exit(0)
         for x in self.getAnswerListAnimation():
             self.printQuestion()
             self.printAnswerList(x)
@@ -40,13 +39,15 @@ class dupiecli(dupiegame.dupiegame):
         print("".center(120, "="))
 
         # TODO: compare UTF-8 length to ANSI length and apply offsets
-        print((" %s " % _questionText).center(120, "="))
+        #print("%s,s" %  ))
+        offset = len(_questionText) - len(_questionText.encode("ascii", "ignore"))
+        print((" %s " % _questionText).center(120 - offset, "="))
         print("".center(120, "="))
 
     def getQuestionMessage(self):
         # formats the question with selected languages
         dto = self.getQuestion()
-        return "%(pre)s %(question)s %(post)s" % dto
+        return "%(PRE)s %(QUESTION)s %(POST)s" % dto
 
     def printAnswerList(self,_AnswerList):
         # formats and populates the answer list
@@ -54,7 +55,8 @@ class dupiecli(dupiegame.dupiegame):
         #print (_AnswerList)
         for x in _AnswerList:
             _counter+=1
-            print((" %s) %s " % (_counter, x["ANSWER"])).center(40, " "), end='')
+            offset = len(x["ANSWER"]) - len(x["ANSWER"].encode("ascii", "ignore"))
+            print((" %s) %s " % (_counter, x["ANSWER"])).center(40-offset, " "), end='')
             if not _counter % 3:
                 print()
 
@@ -72,7 +74,7 @@ class dupiecli(dupiegame.dupiegame):
 
 
 if __name__ == "__main__":
-    quiz = dupiecli(numofanswers=True,loadfromDBIndex=1001)
+    quiz = dupiecli(loadfromDBIndex=1001)
 #    quiz = dupiecli("english","english",3,3)
 #    quiz = dupiecli("espanol","espanol",3,3)
     #quiz = dupiecli("english","hangugeo",3,3)

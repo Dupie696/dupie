@@ -1,12 +1,5 @@
 import mysql.connector
 
-longtoshort = {
- "english":"en",
- "espanol":"es",
- "nihon":"ja",
- "zhongwen":"zh",
- "hangugeo":"ko"}
-
 class dupiebase:
     def __init__(self):
         # setups database connection
@@ -16,7 +9,7 @@ class dupiebase:
                 password=open('/var/www/wsgi/dupie/secret/dupiepassword.txt', 'r').read(),
                 host="localhost",
                 port=3306,
-                database="dupie"
+                database="DUPIE"
             )
         except mysql.connector.errors.Error as err: 
             raise BaseException("DupieBase Constructor Failed!: \n {}".format(err))
@@ -48,51 +41,33 @@ class dupiebase:
             dto.append(_dto)
         return dto
 
-    # def getVocabDump(self):
-    #     etl = self.query("SELECT * FROM dupie.vocabulary where vocabulary_index = synonym ;")
-
-    #     dto = {}
-    #     for row in etl:
-    #         dto[row["vocabulary_index"]+1001-3] = {
-    #                 'deutsch': row['deutsch'],
-    #                 'english': row['english'],
-    #                 'espanol': row['espanol'],
-    #                 'francais': row['francais'],
-    #                 'svenska': row['svenska'],
-    #                 'zhongwen': row['zhongwen']
-    #             }
-    #     return dto
-
     def getLexiconETL(self,questionlanguage, answerlanguage):
         xdto = {
-            "questionlanguage": questionlanguage,
-            "answerlanguage": answerlanguage,
-            "shortquestionlanguage": longtoshort[questionlanguage],
-            "shortanswerlanguage": longtoshort[answerlanguage]
+            "QUESTIONLANGUAGE": questionlanguage,
+            "ANSWERLANGUAGE": answerlanguage
             }
         dto = (
-            self.query("SELECT vocabulary_index, %(questionlanguage)s ""question"", %(answerlanguage)s ""answer"" FROM dupie.vocabulary where vocabulary_index = synonym and %(questionlanguage)s<>'' and %(answerlanguage)s<>'';" % xdto )
+            self.query("SELECT VOCABULARY_INDEX, %(QUESTIONLANGUAGE)s ""QUESTION"", %(ANSWERLANGUAGE)s ""ANSWER"" FROM DUPIE.VOCABULARY WHERE VOCABULARY_INDEX = SYNONYM AND %(QUESTIONLANGUAGE)s<>'' AND %(ANSWERLANGUAGE)s<>'';" % xdto )
         )
 
         for x in range(0, len(dto)):
-            xdto["index"] = dto[x]["vocabulary_index"]
-
-            dto[x]["answer_audio"] = "%(index)s-%(shortanswerlanguage)s.mp3" % xdto
-            dto[x]["question_audio"] = "%(index)s-%(shortquestionlanguage)s.mp3" % xdto
+            xdto["INDEX"] = dto[x]["VOCABULARY_INDEX"]
+            dto[x]["ANSWER_AUDIO"] = "%(INDEX)s-%(ANSWERLANGUAGE)s.mp3" % xdto
+            dto[x]["QUESTION_AUDIO"] = "%(INDEX)s-%(QUESTIONLANGUAGE)s.mp3" % xdto
 
         return dto
 
-    def getQuestionFormat(self,answerlanguage):
-        dto = {"answerlanguage": answerlanguage}
+    def getQuestionFormat(self,ANSWERLANGUAGE):
+        dto = {"ANSWERLANGUAGE": ANSWERLANGUAGE}
 
         dto.update(
-            self.query("SELECT pre, post FROM dupie.PROMPT where LANGUAGE = '%(answerlanguage)s';" % dto)[0]
+            self.query("SELECT PRE, POST FROM DUPIE.PROMPT WHERE LANGUAGE = '%(ANSWERLANGUAGE)s';" % dto)[0]
         )
 
         dto.update(
             {
-                "pre_audio": "%(answerlanguage)s-%(answerlanguage)s-1.mp3" % dto,
-                "post_audio": "%(answerlanguage)s-%(answerlanguage)s-2.mp3" % dto
+                "PRE_AUDIO": "%(ANSWERLANGUAGE)s-%(ANSWERLANGUAGE)s-1.mp3" % dto,
+                "POST_AUDIO": "%(ANSWERLANGUAGE)s-%(ANSWERLANGUAGE)s-2.mp3" % dto
             }
         )
         return dto
@@ -105,7 +80,7 @@ class dupiebase:
 
     def SaveQuestions(self, sessionID, UID,dto):
         xdto = {
-            "sessionID": sessionID,
+            "SESSIONID": sessionID,
             "UID": UID,
             }
 
@@ -115,7 +90,7 @@ class dupiebase:
             dto[x] =  {k.upper(): v for k, v in dto[x].items()}
 
 
-            query = """INSERT INTO dupie.QUESTIONS
+            query = """INSERT INTO DUPIE.QUESTIONS
                     (SESSIONID, UID, QUESTION, QUESTION_AUDIO, ANSWER, ANSWER_AUDIO, VOCABULARY_INDEX,QUIZQUESTION_INDEX)
                 VALUES 
                 (%(SESSIONID)s, %(UID)s, '%(QUESTION)s', '%(QUESTION_AUDIO)s', '%(ANSWER)s', '%(ANSWER_AUDIO)s', '%(VOCABULARY_INDEX)s',%(QUIZQUESTION_INDEX)s);""" % dto[x]
@@ -124,7 +99,7 @@ class dupiebase:
 
     def SaveAnswers(self, sessionID, shuffle, quizquestion_index, dto,mixes):
         xdto = {
-            "sessionID": sessionID,
+            "SESSIONID": sessionID,
             "SHUFFLE": shuffle,
             "QUIZQUESTION_INDEX":quizquestion_index,
             "QUIZANSWERANIMATION_INDEX":mixes
@@ -134,35 +109,28 @@ class dupiebase:
             dto[x].update({"QUIZANSWER_INDEX":x})
             dto[x] =  {k.upper(): v for k, v in dto[x].items()}
 
-            query = """INSERT INTO dupie.ANSWERS
-    (SESSIONID, VOCABULARY_INDEX, SHUFFLE, ANSWER, ANSWER_AUDIO,QUIZQUESTION_INDEX,QUIZANSWER_INDEX,QUIZANSWERANIMATION_INDEX)
-    VALUES(%(SESSIONID)s, %(VOCABULARY_INDEX)s, %(SHUFFLE)s, '%(ANSWER)s', '%(ANSWER_AUDIO)s',%(QUIZQUESTION_INDEX)s,%(QUIZANSWER_INDEX)s,%(QUIZANSWERANIMATION_INDEX)s);""" % dto[x]
-#            print (query)
+            query = """INSERT INTO DUPIE.ANSWERS
+                        (SESSIONID, VOCABULARY_INDEX, SHUFFLE, ANSWER, ANSWER_AUDIO,QUIZQUESTION_INDEX,QUIZANSWER_INDEX,QUIZANSWERANIMATION_INDEX)
+                        VALUES(%(SESSIONID)s, %(VOCABULARY_INDEX)s, %(SHUFFLE)s, '%(ANSWER)s', '%(ANSWER_AUDIO)s',%(QUIZQUESTION_INDEX)s,%(QUIZANSWER_INDEX)s,%(QUIZANSWERANIMATION_INDEX)s);""" % dto[x]
+
             self.update(query)
 
     def getSessionInfo(self,ID):
-        dto = self.query("""SELECT USERSESSIONS_INDEX, UID, FRIENDLYNAME, SESSIONID, LANG_QUESTION, LANG_ANSWER, QUESTION_INDEX, QUESTIONS, ANSWERS, SHUFFLES
-FROM dupie.USERSESSIONS where SESSIONID = %s; 
-""" % ID)
+        dto = self.query("""SELECT USERSESSIONS_INDEX, UID, FRIENDLYNAME, SESSIONID, LANG_QUESTION, LANG_ANSWER, QUESTION_INDEX, QUESTIONS, ANSWERS, SHUFFLES, STATEMACHINE
+                            FROM DUPIE.USERSESSIONS WHERE SESSIONID = %s;""" % ID)
         return dto[0]
 
 
     def getQuestionList(self,ID):
-        dto = self.query(""" SELECT SESSIONID, UID, QUESTION, QUESTION_AUDIO, ANSWER, ANSWER_AUDIO, VOCABULARY_INDEX, QUIZQUESTION_INDEX
-FROM dupie.QUESTIONS
-        where SESSIONID = %s; 
-""" % ID)
+        dto = self.query(""" SELECT QUESTION, QUESTION_AUDIO, ANSWER, ANSWER_AUDIO, VOCABULARY_INDEX, QUIZQUESTION_INDEX
+                            FROM DUPIE.QUESTIONS WHERE SESSIONID = %s;""" % ID)
         return dto
 
     def getAnswerList(self,ID):
-#        numberofanswers = self.getSessionInfo(ID)["ANSWERS"]
         numberofquestions = self.getSessionInfo(ID)["QUESTIONS"]
 
-        _dto = self.query("""
-        SELECT SESSIONID, VOCABULARY_INDEX, SHUFFLE, ANSWER, ANSWER_AUDIO, QUIZQUESTION_INDEX, QUIZANSWER_INDEX
-FROM dupie.ANSWERS
-        where SHUFFLE = 0 and SESSIONID = %s; 
-""" % ID)
+        _dto = self.query("""SELECT VOCABULARY_INDEX, SHUFFLE, ANSWER, ANSWER_AUDIO, QUIZQUESTION_INDEX, QUIZANSWER_INDEX
+                            FROM DUPIE.ANSWERS WHERE SHUFFLE = 0 AND SESSIONID = %s;""" % ID)
 
         dto = [[] for i in range(numberofquestions)]
 
@@ -176,21 +144,45 @@ FROM dupie.ANSWERS
         numberofquestions = self.getSessionInfo(ID)["QUESTIONS"]
         numberofshuffles = self.getSessionInfo(ID)["SHUFFLES"]
 
-        _dto = self.query("""
-        SELECT SESSIONID, VOCABULARY_INDEX, SHUFFLE, ANSWER, ANSWER_AUDIO, QUIZQUESTION_INDEX, QUIZANSWER_INDEX,QUIZANSWERANIMATION_INDEX
-FROM dupie.ANSWERS
-        where SHUFFLE = 1 and SESSIONID = %s; 
-        """ % ID)
+        _dto = self.query("""SELECT SESSIONID, VOCABULARY_INDEX, SHUFFLE, ANSWER, ANSWER_AUDIO, QUIZQUESTION_INDEX, QUIZANSWER_INDEX,QUIZANSWERANIMATION_INDEX
+                            FROM DUPIE.ANSWERS where SHUFFLE = 1 and SESSIONID = %s;""" % ID)
 
-        dto = [[] for i in range(numberofquestions)]
-        dto = [        [[] for i in range(numberofshuffles)]  for i in range(numberofquestions)]
+        dto = [[[] for i in range(numberofshuffles)]  for i in range(numberofquestions)]
 
         for x in _dto:
            dto[x["QUIZQUESTION_INDEX"]][x["QUIZANSWERANIMATION_INDEX"]].append(x)
-        #    print (x["QUIZQUESTION_INDEX"])
 
         return dto
+####################################################
+####################################################
+####################################################
+    def getUserSession(self, uid, sessionid):
+        xdto = {
+            "SESSIONID": sessionid,
+            "UID": uid,
+            }
 
+        query = """SELECT 
+                        USERSESSIONS_INDEX, UID, FRIENDLYNAME, SESSIONID, LANG_QUESTION, LANG_ANSWER, 
+                        QUESTION_INDEX, QUESTIONS, ANSWERS, SHUFFLES, STATEMACHINE
+                    FROM DUPIE.USERSESSIONS
+                    WHERE
+                        SESSIONID = %(SESSIONID)s 
+                        and UID = %(UID)s
+                    ;""" % xdto   
+
+        dto = self.query(query)
+
+        if len(dto) == 1:
+            return dto
+        elif len(dto) == 0:
+            raise BaseException("Failed to find session to load")
+        else:
+            raise BaseException("session table is corrupt! (probably not! hahah)")
+
+####################################################
+####################################################
+####################################################
 if __name__ == "__main__":
    a = dupiebase()
    import pprint
@@ -210,4 +202,7 @@ if __name__ == "__main__":
 #    for a in a.getVocabDump().values():
 #        counter= counter+1
 #        print (' %s -  %s ' % (counter,a['english'])),
-   print(pprint.pformat(a.getAnswerListAnimation(1001)))
+#    print(pprint.pformat(a.getAnswerListAnimation(1001)))
+
+   
+   print(pprint.pformat(a.getSessionInfo(1001)))

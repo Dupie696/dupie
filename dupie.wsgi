@@ -1,5 +1,5 @@
 import sys
 sys.path.insert(0, "/var/www/wsgi/dupie/src")
 import bottle
-import dupieweb
+import dupiewsgi
 application = bottle.default_app()
