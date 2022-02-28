@@ -1,0 +1,12 @@
+{% extends "dupie_template.html" %}
+{% block content %}
+<form method="post" action="/newuser" enctype="multipart/form-data" name="main">
+
+    <H1>Welcome to Dupie! </H1>
+    <BR><BR>
+    <P>
+    Who are you? 
+    <input type="text" name="username" size="25" value=""/>
+    <input type="submit" name="Save" value="Submit" />
+    </P>
+{% endblock %}

@@ -1,0 +1,26 @@
+Today:
+-standardize inherited jinja2 templates
+
+
+
+Majors:
+* stateless quiz
+    * load users session
+    * load first question
+    * TBD
+
+minors:
+* extend base template to all jinja2 pages
+* script breadcrumbs code
+* css for top right login
+
+
+
+future:
+* setup ldap service
+* setup fail2ban
+
+
+
+citations:
+- multi-level lists  <!--https://www.computerhope.com/issues/ch001703.htm-->   

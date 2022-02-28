@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html class="notranslate" translate="no">
+<head>
+    <meta name="google" content="notranslate"/>
+    <link rel="stylesheet" href="/resource/html/styles3.css"/>
+    <title>Dupie</title>
+</head>
+<body>
+
+  <div class="tbar">
+    <a href="/" id="home">Dupie</a>
+
+
+    {% for crumbs in BreadCrumbs %}
+    {% for caption, url in crumbs.items() %}
+    >
+    <a href="{{ url }}">{{ caption }}</a>
+    {% endfor %}
+    {% endfor %}
+
+<!--    <a id="login">{{ DTO.username }}</a>-->
+
+  </div>
+
+    <div class="normalbody">{% block content %}{% endblock %}</div>
+
+
+<div class="bbar">
+    Copyright 2022 donotclick.me, this program is <a href="https://github.com/Dupie696/dupie">distributed</a> under the terms of the <a href="https://www.gnu.org/licenses/">GNU General Public License</a>
+</div>
+
+</body>
+</HTML>
+  
+  
