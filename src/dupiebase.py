@@ -1,46 +1,14 @@
 import mysql.connector
+import class_templates.databases
 
-class dupiebase:
-    def __init__(self):
-        # setups database connection
-        try:
-            self.conn = mysql.connector.connect(
-                user="dupie",
-                password=open('/var/www/wsgi/dupie/secret/dupiepassword.txt', 'r').read(),
-                host="localhost",
-                port=3306,
-                database="DUPIE"
-            )
-        except mysql.connector.errors.Error as err: 
-            raise BaseException("DupieBase Constructor Failed!: \n {}".format(err))
-      
-        self.conn.autocommit = False
+class dupiebase(class_templates.databases.std_database):
+    def getSessionInfo(self,ID):
+        dto = self.query("""SELECT USERSESSIONS_INDEX, UID, FRIENDLYNAME, SESSIONID, LANG_QUESTION, LANG_ANSWER, QUESTION_INDEX, QUESTIONS, ANSWERS, SHUFFLES, STATEMACHINE
+                            FROM DUPIE.USERSESSIONS WHERE SESSIONID = %s;""" % ID)
+        return dto[0]
 
-    def __del__(self):
-        if hasattr("self", "conn"):
-            self.conn.connector.close()
 
-    def query(self,query):
-        sql_cursor = self.conn.cursor()
-        sql_cursor.execute(query)
-        sql_field_names = [i[0] for i in sql_cursor.description]
-
-        dto = []
-
-        # reads all the rows and makes it into a dto
-        for sql_row_data in sql_cursor:
-            # grabs the field names and field data
-            field_names = list(sql_field_names)
-            field_datas = list(sql_row_data)
-
-            # assigns field names to field data
-            zipped_data = zip(field_names,field_datas)
-
-            # packs up for dto as a dict
-            _dto = dict(zipped_data)
-            dto.append(_dto)
-        return dto
-
+class OLDSTUFF():
     def getLexiconETL(self,questionlanguage, answerlanguage):
         xdto = {
             "QUESTIONLANGUAGE": questionlanguage,
