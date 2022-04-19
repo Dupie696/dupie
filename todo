@@ -1,3 +1,9 @@
+Done:
+- refactored classes structures
+- used inheritance to break things up (multiple layers of abstruction was too tedious!)
+- figure out how to leverage super() to put all the bottle decorators in the same class as they belong too.
+- figure out how to do check authenication using a decorator
+
 Today:
 -standardize inherited jinja2 templates
 
@@ -13,7 +19,7 @@ minors:
 * extend base template to all jinja2 pages
 * script breadcrumbs code
 * css for top right login
-
+* custom logging using more decorators
 
 
 future:
