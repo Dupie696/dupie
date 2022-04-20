@@ -41,3 +41,60 @@ body {
   color: blue;
   text-align: right;
 }
+
+.QuestionBox {
+  background:url('/resource/img/q.png');
+  background-repeat: no-repeat; 
+  background-size: 100% 100%;
+  padding: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  border-width: 10px;
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;  
+}
+.AnswerBox {
+  background:url('/resource/img/a.png'); 
+  background-repeat: no-repeat; 
+  background-size: 100% 100%;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  border-width: 10px;
+
+} 
+.AnswerButtonCORRECT {
+  background:url('/resource/img/aT.png'); 
+  background-repeat: no-repeat; 
+  background-size: 100% 100%;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
+.AnswerButtonWRONG {
+  background:url('/resource/img/aF.png'); 
+  background-repeat: no-repeat; 
+  background-size: 100% 100%;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;  
+}

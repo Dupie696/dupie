@@ -20,7 +20,9 @@ minors:
 * script breadcrumbs code
 * css for top right login
 * custom logging using more decorators
-
+* put the cookie key somewhere else 
+* * and .gitignore it when I do.
+* figure out how to import a folder at a time and reference it
 
 future:
 * setup ldap service

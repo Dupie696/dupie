@@ -6,10 +6,14 @@ class WSGIToolsClass():
     def __init__(self):
         self.bottle.post ("/newuser")                       (self.createAccount)
         self.bottle.route("/resource/<folder>/<filename>")  (self.getStaticFiles)
+        self.bottle.route("/favicon.ico")  (self.getStaticICO)
 
         self.bottle.route("/")          (self.checkAuth(self.loadMainPage))
         self.bottle.route("/deleteuser")(self.checkAuth(self.deletemyaccount))
         super().__init__()
+
+    def getStaticICO(self):
+        return self.bottle.static_file("favicon.ico", root='/var/www/wsgi/dupie/resource/img/')
 
 
     def createAccount(self):
@@ -24,7 +28,8 @@ class WSGIToolsClass():
 
     def getStaticFiles(self,folder, filename):
         # if developing comment out below line
-        self.bottle.response.set_header('Cache-Control', 'must-revalidate')
+        if (filename[-3:] != "mp3"):
+            self.bottle.response.set_header('Cache-Control', 'must-revalidate')
 
         # TODO: this probably isn't necessary, but will put regex here
         #   if filename in ["aquabutton.jpg","nh1.mp3","questionbox.jpg"]:
@@ -51,7 +56,15 @@ class WSGIToolsClass():
         return self.bottle.request.get_cookie(name, secret=secret)
 
     def getTemplate(self, document):
-        file_loader = jinja2.FileSystemLoader("/var/www/wsgi/dupie/template/")
+        file_loader = jinja2.FileSystemLoader(
+            [
+                "/var/www/wsgi/dupie/template/quiz",
+                "/var/www/wsgi/dupie/template/tools",
+                "/var/www/wsgi/dupie/template/templates",
+                "/var/www/wsgi/dupie/template/videos"
+            ]
+            
+            )
         env = jinja2.Environment(loader=file_loader)
         template = env.get_template(document)
         return template

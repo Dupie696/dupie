@@ -1,12 +1,14 @@
-import class_templates.wsgi
 import website.videos
 import website.tools
 import website.quiz
+import quiz.database
 
-class DupieWSGI(website.tools.CheckAuthClass,
-                website.videos.VideoWebpagesClass,
-                website.quiz.QuizWebpagesClass,
-                website.tools.WSGIToolsClass):
+class DupieWSGI(
+    quiz.database.dupiebase,
+    website.tools.CheckAuthClass,
+    website.videos.VideoWebpagesClass,
+    website.quiz.QuizWebpagesClass,
+    website.tools.WSGIToolsClass):
 
     def __init__(self,bottle):
         self.bottle = bottle
@@ -15,4 +17,7 @@ class DupieWSGI(website.tools.CheckAuthClass,
 if __name__ == "__main__":
     import bottle
 
-    DupieWSGI(bottle)
+    a = DupieWSGI(bottle)
+    #print (a.getAllSessionInfo(101))
+    x = a.CheckAnswer(101,1001,1)
+    print (x)

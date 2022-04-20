@@ -1,0 +1,63 @@
+{% extends "dupie_template.html" %}
+{% block library %}
+    <script type="text/javascript" src="/resource/html/quiz2.js"></script>
+{% endblock %}
+
+{% block content %}
+{% set p1 = "en-en-1.mp3"  %}
+{% set p2 = "en-en-2.mp3"  %}
+{% set q =  DTO.question.QUESTION_AUDIO %}
+{% set questionparams = '\"' + [p1,q,p2]|join('\",\"') + '\"' %}
+{% set questionOnClick = "\'questionSoundFile(" + questionparams + ")'" %}
+<BR>
+    
+<table>
+    <tr>
+        <td>
+            <table class="QuestionBox" onclick={{questionOnClick}}>
+                <tr>
+                    <td>
+                        {{DTO.prompt.PRE}} 
+                        {{DTO.question.QUESTION}}
+                        {{DTO.prompt.POST}} 
+
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table >
+                <tr>
+
+                {%- for my_entry in range(DTO.answers|length) %}
+
+
+                {%- set i = my_entry  %}
+                {%- set s = DTO.answers[i].ANSWER_AUDIO  %}
+                {%- set questionparams = '\"' + [i,s]|join('\",\"') + '\"' %}
+                {%- set answerOnClick = "\'selectAnswer(" + questionparams + ")'" %}
+
+                    <td id="answer{{ my_entry }}" class="AnswerBox"  onclick={{answerOnClick}}>
+                            {{ DTO.answers[my_entry].ANSWER }}
+                        </td>
+
+                        {%- if (my_entry + 1) % 3 == 0 %}
+                    </tr>
+                        {%- endif %}
+
+                    {%- if (my_entry + 1 != DTO.answers|length) %}
+                        {%- if (my_entry + 1) % 3 == 0 %}
+                    <tr>
+                        {%- endif %}
+                    {%- endif %}       
+                    {%- endfor %}
+            </table>
+        </td>
+    </tr>
+</table>
+
+
+{% endblock %}

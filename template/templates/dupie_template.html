@@ -3,23 +3,20 @@
 <head>
     <meta name="google" content="notranslate"/>
     <link rel="stylesheet" href="/resource/html/styles3.css"/>
+    {%- block library %}{%- endblock %}
     <title>Dupie</title>
 </head>
 <body>
 
   <div class="tbar">
     <a href="/" id="home">Dupie</a>
-
-
-    {% for crumbs in BreadCrumbs %}
-    {% for caption, url in crumbs.items() %}
+    {%- for crumbs in BreadCrumbs %}
+    {%- for caption, url in crumbs.items() %}
     >
     <a href="{{ url }}">{{ caption }}</a>
-    {% endfor %}
-    {% endfor %}
-
+    {%- endfor %}
+    {%- endfor %}
 <!--    <a id="login">{{ DTO.username }}</a>-->
-
   </div>
 
     <div class="normalbody">{% block content %}{% endblock %}</div>

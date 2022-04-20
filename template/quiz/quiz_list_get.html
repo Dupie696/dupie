@@ -1,0 +1,46 @@
+{% extends "dupie_template.html" %}
+{% block content %}
+
+{# DTO.AllSessionInfo #}
+<BR><BR><BR>
+<table>
+    <tr>
+        <th>
+            Link
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Language
+        </th>
+        <th>
+            Questions
+        </th>
+        <th>
+            Choices
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <a href="quiz/{{DTO.AllSessionInfo[0].UID}}/{{DTO.AllSessionInfo[0].SESSIONID}}/0/">Game#{{DTO.AllSessionInfo[0].USERSESSIONS_INDEX}}</a>
+            
+        </td>
+        <td>
+            {{DTO.AllSessionInfo[0].STATEMACHINE}}
+        </td>
+        <td>
+            {{DTO.AllSessionInfo[0].LANG_QUESTION}} 
+        -->
+            {{DTO.AllSessionInfo[0].LANG_ANSWER}}
+        </td>
+        <td>
+            {{DTO.AllSessionInfo[0].QUESTIONS}}
+        </td>
+        <td>
+            {{DTO.AllSessionInfo[0].ANSWERS}}
+        </td>
+    </tr>
+</table>
+
+{% endblock %}

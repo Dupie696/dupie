@@ -1,6 +1,6 @@
 import mysql.connector
 
-class std_database():
+class mysql_database_connector():
     def __init__(self):
         # setups database connection
         try:
@@ -12,7 +12,7 @@ class std_database():
                 database="DUPIE"
             )
         except mysql.connector.errors.Error as err: 
-            raise BaseException("DupieBase Constructor Failed!: \n {}".format(err))
+            raise BaseException("mysql_database Constructor Failed!: \n {}".format(err))
       
         self.conn.autocommit = False
 
