@@ -21,26 +21,30 @@
             Choices
         </th>
     </tr>
+{%- for mySession in DTO.AllSessionInfo %}
+
     <tr>
         <td>
-            <a href="quiz/{{DTO.AllSessionInfo[0].UID}}/{{DTO.AllSessionInfo[0].SESSIONID}}/0/">Game#{{DTO.AllSessionInfo[0].USERSESSIONS_INDEX}}</a>
+            <a href="quiz/{{mySession.UID}}/{{mySession.SESSIONID}}/0/">Game#{{mySession.USERSESSIONS_INDEX}}</a>
             
         </td>
         <td>
-            {{DTO.AllSessionInfo[0].STATEMACHINE}}
+            {{mySession.STATEMACHINE}}
         </td>
         <td>
-            {{DTO.AllSessionInfo[0].LANG_QUESTION}} 
+            {{mySession.LANG_QUESTION}} 
         -->
-            {{DTO.AllSessionInfo[0].LANG_ANSWER}}
+            {{mySession.LANG_ANSWER}}
         </td>
         <td>
-            {{DTO.AllSessionInfo[0].QUESTIONS}}
+            {{mySession.QUESTIONS}}
         </td>
         <td>
-            {{DTO.AllSessionInfo[0].ANSWERS}}
+            {{mySession.ANSWERS}}
         </td>
     </tr>
+{%- endfor %}
+
 </table>
 
 {% endblock %}

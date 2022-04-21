@@ -2,8 +2,10 @@ import website.videos
 import website.tools
 import website.quiz
 import quiz.database
+import quiz.generation
 
 class DupieWSGI(
+    quiz.generation.QuizGeneration,
     quiz.database.dupiebase,
     website.tools.CheckAuthClass,
     website.videos.VideoWebpagesClass,
@@ -19,5 +21,5 @@ if __name__ == "__main__":
 
     a = DupieWSGI(bottle)
     #print (a.getAllSessionInfo(101))
-    x = a.CheckAnswer(101,1001,1)
+    x = a.generateQuiz(101,"EN","ES",3,6)
     print (x)

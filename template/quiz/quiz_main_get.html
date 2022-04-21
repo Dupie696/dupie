@@ -3,14 +3,14 @@
     <script type="text/javascript" src="/resource/html/quiz2.js"></script>
 {% endblock %}
 
+ 
 {% block content %}
-{% set p1 = "en-en-1.mp3"  %}
-{% set p2 = "en-en-2.mp3"  %}
+{% set p1 = DTO.prompt.PRE_AUDIO   %}
+{% set p2 = DTO.prompt.POST_AUDIO   %}
 {% set q =  DTO.question.QUESTION_AUDIO %}
 {% set questionparams = '\"' + [p1,q,p2]|join('\",\"') + '\"' %}
 {% set questionOnClick = "\'questionSoundFile(" + questionparams + ")'" %}
 <BR>
-    
 <table>
     <tr>
         <td>

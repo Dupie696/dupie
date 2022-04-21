@@ -40,3 +40,8 @@ class mysql_database_connector():
             _dto = dict(zipped_data)
             dto.append(_dto)
         return dto
+
+    def update(self,query):
+      sql_cursor = self.conn.cursor()
+      sql_cursor.execute(query)
+      self.conn.commit()

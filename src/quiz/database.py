@@ -52,7 +52,7 @@ class dupiebase():
 
     def getPrompt(self,questionLanguage):
         dto = self.connector.query("""SELECT 
-                                            PROMPT_INDEX, `LANGUAGE`, PRE, POST, PRE2, POST2
+                                            PROMPT_INDEX, `LANGUAGE`, PRE, POST, PRE2, POST2, PRE_AUDIO, POST_AUDIO
                                         FROM 
                                             DUPIE.PROMPT
                                         WHERE

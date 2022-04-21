@@ -40,10 +40,6 @@ class OLDSTUFF():
         )
         return dto
 
-    def update(self,query):
-      sql_cursor = self.conn.cursor()
-      sql_cursor.execute(query)
-      self.conn.commit()
 
 
     def SaveQuestions(self, sessionID, UID,dto):
