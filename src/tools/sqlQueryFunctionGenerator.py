@@ -1,34 +1,22 @@
-insert_template = """INSERT INTO DUPIE.USERSESSIONS
-(USERSESSIONS_INDEX, UID, FRIENDLYNAME, SESSIONID, LANG_QUESTION, LANG_ANSWER, QUESTION_INDEX, QUESTIONS, ANSWERS, SHUFFLES, STATEMACHINE)
-VALUES(0, 0, '', 0, '', '', 0, 0, 0, 0, '');"""
+class GenerateSQLInsert():
+    def __init__(self,raw_sql):
+        self.raw_sql = raw_sql
+        self.fieldsList = raw_sql.split("(")[1].split(")")[0].split(", ")
+        parameterizedlist = ["%%(%s)s" % (x) for x in self.fieldsList]
+        self.substitutionParameters = tuple (parameterizedlist)
 
 
 
-x_list = insert_template.split("(")[1].split(")")[0].split(", ")
-x = ["%%(%s)s" % (y) for y in x_list]
-print (x)
-x = tuple (x)
+        valuesList =  raw_sql.split("(")[2].split(")")[0]
+        valuesList = valuesList.replace("0","%s").replace("''","'%s'") % self.substitutionParameters
 
-y =  insert_template.split("(")[2].split(")")[0]
-y = y.replace("0","%s").replace("''","'%s'") % x
-print (y)
-print ()
-print ()
-print ()
+        result = "\n\t\t\t".join(self.raw_sql.split("\n")[0:2]) + "\n\t\t\tVALUES(%s)" % valuesList
 
-result = "\n".join(insert_template.split("\n")[0:2]) + "\nVALUES(%s)" % y
+        dictTemplateList = ""
+        for a in self.fieldsList:
+            dictTemplateList = dictTemplateList +  '\t\t\t"%s":  %s,\n' % (a,a)
 
-print (result)
-
-print ()
-print ()
-print ()
-
-xdto = ""
-for a in x_list:
-    xdto = xdto +  '\t\t\t"%s":  %s,\n' % (a,a)
-
-xdto_result = """
+        xdto_result = """
     def template(self, %s):
 
         xdto = {
@@ -37,7 +25,24 @@ xdto_result = """
             query = \"\"\"%s\"\"\" %% dto[x]
 
             self.update(query)            
-            """ % (",".join(x_list),xdto,result)
+            """ % (",".join(self.fieldsList),dictTemplateList,result)
+        
+        self.templated_function = xdto_result
 
 
-print (xdto_result)
+    def __str__(self):
+        return (self.templated_function)
+
+
+
+
+sql = """INSERT INTO DUPIE.QUESTIONS
+(SESSIONID, UID, QUESTION, QUESTION_AUDIO, ANSWER, ANSWER_AUDIO, VOCABULARY_INDEX, QUIZQUESTION_INDEX)
+VALUES(0, 0, '', '', '', '', 0, 0);
+"""
+
+sql = """INSERT INTO DUPIE.ANSWERS
+(SESSIONID, VOCABULARY_INDEX, SHUFFLE, ANSWER, ANSWER_AUDIO, QUIZQUESTION_INDEX, QUIZANSWER_INDEX, QUIZANSWERANIMATION_INDEX)
+VALUES(0, 0, 0, '', '', 0, 0, 0);
+"""
+print (GenerateSQLInsert(sql))

@@ -21,5 +21,7 @@ if __name__ == "__main__":
 
     a = DupieWSGI(bottle)
     #print (a.getAllSessionInfo(101))
-    x = a.generateQuiz(101,"EN","ES",3,6)
-    print (x)
+    #x = a.generateQuiz_Session(101,"EN","EN",3,6)
+    x = a.getLexicon("EN","FR")
+    import pprint
+    print (pprint.pformat(x))

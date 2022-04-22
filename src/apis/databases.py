@@ -45,3 +45,4 @@ class mysql_database_connector():
       sql_cursor = self.conn.cursor()
       sql_cursor.execute(query)
       self.conn.commit()
+      return (sql_cursor.lastrowid)
