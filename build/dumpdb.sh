@@ -1,9 +1,9 @@
 # dumps all tables into a temp file
-mysqldump --user=dupie --password="$(cat ../secret/dupiepassword.txt)" --lock-tables dupie ANSWERS > ANSWERS.sqlx
-mysqldump --user=dupie --password="$(cat ../secret/dupiepassword.txt)" --lock-tables dupie QUESTIONS > QUESTIONS.sqlx
-mysqldump --user=dupie --password="$(cat ../secret/dupiepassword.txt)" --lock-tables dupie USERSESSIONS > USERSESSIONS.sqlx
-mysqldump --user=dupie --password="$(cat ../secret/dupiepassword.txt)" --lock-tables dupie PROMPT > PROMPT.sqlx
-mysqldump --user=dupie --password="$(cat ../secret/dupiepassword.txt)" --lock-tables dupie VOCABULARY > VOCABULARY.sqlx
+mysqldump --user=dupie --password="$(cat ../secret/dupiepassword.txt)" --lock-tables DUPIE ANSWERS > ANSWERS.sqlx
+mysqldump --user=dupie --password="$(cat ../secret/dupiepassword.txt)" --lock-tables DUPIE QUESTIONS > QUESTIONS.sqlx
+mysqldump --user=dupie --password="$(cat ../secret/dupiepassword.txt)" --lock-tables DUPIE USERSESSIONS > USERSESSIONS.sqlx
+mysqldump --user=dupie --password="$(cat ../secret/dupiepassword.txt)" --lock-tables DUPIE PROMPT > PROMPT.sqlx
+mysqldump --user=dupie --password="$(cat ../secret/dupiepassword.txt)" --lock-tables DUPIE VOCABULARY > VOCABULARY.sqlx
 
 # deletes the comments in temp file (making a non-temp file)
 grep -v "^--" ANSWERS.sqlx | grep -v "^/\*" > ANSWERS.sql

@@ -28,9 +28,13 @@ class WSGIToolsClass():
 
     def getStaticFiles(self,folder, filename):
         # if developing comment out below line
-        if (filename[-3:] != "mp3"):
-    #        self.bottle.response.set_header('Cache-Control', 'must-revalidate')
-            self.bottle.response.set_header('Cache-Control', 'no-store')
+        if (filename[-3:] != "mp3" and filename[-3:] != "css" and filename[-3:] != ".js"):
+            self.bottle.response.set_header('Cache-Control', 'must-revalidate')
+        else:
+#            self.bottle.response.set_header("Cache-Control", "public, max-age=604800")
+            print (filename[-3:])
+            print (folder)
+            print (filename)
 
         # TODO: this probably isn't necessary, but will put regex here
         #   if filename in ["aquabutton.jpg","nh1.mp3","questionbox.jpg"]:

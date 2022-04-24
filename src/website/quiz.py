@@ -41,6 +41,16 @@ class QuizWebpagesClass():
             return "False"
 
     def NewQuizPage(self):
-        USERSESSIONS_INDEX = self.generateQuiz_Session(101,"EN","AR",10,9)
-        self.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,10,9, "EN","AR")
+        USERSESSIONS_INDEX = self.generateQuiz_Session(101,"EN","ES",10,9)
+        self.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,10,9, "EN","ES")
+
+        # USERSESSIONS_INDEX = self.generateQuiz_Session(101,"EN","AR",10,9)
+        # self.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,10,9, "EN","AR")
+
+        # USERSESSIONS_INDEX = self.generateQuiz_Session(101,"EN","KO",10,9)
+        # self.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,10,9, "EN","KO")
+
+        # USERSESSIONS_INDEX = self.generateQuiz_Session(101,"EN","RU",10,9)
+        # self.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,10,9, "EN","RU")
+
         return """<meta http-equiv="refresh" content="1;url=/quiz/101/%s/0/" />""" % str(USERSESSIONS_INDEX) + str(USERSESSIONS_INDEX)
