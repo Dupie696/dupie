@@ -9,21 +9,7 @@ class dupiebase(class_templates.databases.std_database):
 
 
 class OLDSTUFF():
-    def getLexiconETL(self,questionlanguage, answerlanguage):
-        xdto = {
-            "QUESTIONLANGUAGE": questionlanguage,
-            "ANSWERLANGUAGE": answerlanguage
-            }
-        dto = (
-            self.query("SELECT VOCABULARY_INDEX, %(QUESTIONLANGUAGE)s ""QUESTION"", %(ANSWERLANGUAGE)s ""ANSWER"" FROM DUPIE.VOCABULARY WHERE VOCABULARY_INDEX = SYNONYM AND %(QUESTIONLANGUAGE)s<>'' AND %(ANSWERLANGUAGE)s<>'';" % xdto )
-        )
 
-        for x in range(0, len(dto)):
-            xdto["INDEX"] = dto[x]["VOCABULARY_INDEX"]
-            dto[x]["ANSWER_AUDIO"] = "%(INDEX)s-%(ANSWERLANGUAGE)s.mp3" % xdto
-            dto[x]["QUESTION_AUDIO"] = "%(INDEX)s-%(QUESTIONLANGUAGE)s.mp3" % xdto
-
-        return dto
 
     def getQuestionFormat(self,ANSWERLANGUAGE):
         dto = {"ANSWERLANGUAGE": ANSWERLANGUAGE}

@@ -58,6 +58,12 @@
         </td>
     </tr>
 </table>
+<BR>
+    {{DTO.gamecomplete}}
+    {%- if DTO.gamecomplete == "False" %}
+<a href="{{DTO.nexttarget}}">{{DTO.nexttarget}}</a>
+{%- else %}
+<a href="/quiz">/quiz</a>
 
-
+{%- endif %}
 {% endblock %}

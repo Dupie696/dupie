@@ -21,7 +21,9 @@ if __name__ == "__main__":
 
     a = DupieWSGI(bottle)
     #print (a.getAllSessionInfo(101))
-    #x = a.generateQuiz_Session(101,"EN","EN",3,6)
-    x = a.getLexicon("EN","FR")
+    USERSESSIONS_INDEX = a.generateQuiz_Session(101,"EN","ES",3,6)
+    x = a.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,3,3, "EN","ES")
+    #x = a.makeMeAQuiz_Answers(1003, 1, 1003,3,"EN","ES")
     import pprint
     print (pprint.pformat(x))
+    print ("USERSESSIONS_INDEX %s" % USERSESSIONS_INDEX)

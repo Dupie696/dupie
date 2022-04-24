@@ -9,45 +9,45 @@ class dupiebase():
 
 
     def getAllSessionInfo(self,UID):
-        dto = self.connector.query("""SELECT USERSESSIONS_INDEX, UID, FRIENDLYNAME, SESSIONID, LANG_QUESTION, LANG_ANSWER, QUESTION_INDEX, QUESTIONS, ANSWERS, SHUFFLES, STATEMACHINE
+        dto = self.connector.query("""SELECT USERSESSIONS_INDEX, UID, FRIENDLYNAME, LANG_QUESTION, LANG_ANSWER, QUIZQUESTION_NUMBER, QUESTIONS, ANSWERS, SHUFFLES, STATEMACHINE
                             FROM DUPIE.USERSESSIONS WHERE UID = %s;""" % UID)
         return dto
 
 
-    def getSessionInfo(self,SessionID):
-        dto = self.connector.query("""SELECT USERSESSIONS_INDEX, UID, FRIENDLYNAME, SESSIONID, LANG_QUESTION, LANG_ANSWER, QUESTION_INDEX, QUESTIONS, ANSWERS, SHUFFLES, STATEMACHINE
-                            FROM DUPIE.USERSESSIONS WHERE SESSIONID = %s;""" % SessionID)
+    def getSessionInfo(self,USERSESSIONS_INDEX):
+        dto = self.connector.query("""SELECT USERSESSIONS_INDEX, UID, FRIENDLYNAME, LANG_QUESTION, LANG_ANSWER, QUIZQUESTION_NUMBER, QUESTIONS, ANSWERS, SHUFFLES, STATEMACHINE
+                            FROM DUPIE.USERSESSIONS WHERE USERSESSIONS_INDEX = %s;""" % USERSESSIONS_INDEX)
         return dto[0]
 
-    def getStaticAnswers(self,SessionID,QuestionIndex):
+    def getStaticAnswers(self,USERSESSIONS_INDEX,QuestionIndex):
         dto = self.connector.query("""SELECT 
-                                        ANSWERS_INDEX, SESSIONID, VOCABULARY_INDEX, SHUFFLE, ANSWER, ANSWER_AUDIO, QUIZQUESTION_INDEX, QUIZANSWER_INDEX, QUIZANSWERANIMATION_INDEX 
+                                        ANSWERS_INDEX, USERSESSIONS_INDEX, VOCABULARY_INDEX, SHUFFLE, ANSWER, ANSWER_AUDIO, QUIZQUESTION_NUMBER, QUIZANSWER_NUMBER, QUIZANSWERANIMATION_INDEX 
                                       FROM 
                                         DUPIE.ANSWERS 
                                     where 
                                             SHUFFLE=0
-                                        and SESSIONID = %s 
-                                        and QUIZQUESTION_INDEX = %s;""" % (SessionID,QuestionIndex))
+                                        and USERSESSIONS_INDEX = %s 
+                                        and QUIZQUESTION_NUMBER = %s;""" % (USERSESSIONS_INDEX,QuestionIndex))
         return dto
         
 
-    def getStaticQuestion(self,SessionID,QuestionIndex):
+    def getStaticQuestion(self,USERSESSIONS_INDEX,QuestionIndex):
         dto = self.connector.query("""SELECT 
-                                            QUESTIONS_INDEX, SESSIONID, UID, QUESTION, QUESTION_AUDIO, ANSWER, ANSWER_AUDIO, VOCABULARY_INDEX, QUIZQUESTION_INDEX
+                                            QUESTIONS_INDEX, USERSESSIONS_INDEX, UID, QUESTION, QUESTION_AUDIO, ANSWER, ANSWER_AUDIO, VOCABULARY_INDEX, QUIZQUESTION_NUMBER
                                     FROM 
                                         DUPIE.QUESTIONS
                                     where 
-                                            SESSIONID = 1001
-                                        and QUIZQUESTION_INDEX = %s;""" % QuestionIndex)
+                                            USERSESSIONS_INDEX = %s
+                                        and QUIZQUESTION_NUMBER = %s;""" % (USERSESSIONS_INDEX, QuestionIndex))
         return dto[0]
 
-    def getAnswerLanguage(self,SessionID):
+    def getAnswerLanguage(self,USERSESSIONS_INDEX):
         dto = self.connector.query("""SELECT 
                                             LANG_ANSWER
                                         FROM 
                                             DUPIE.USERSESSIONS 
                                         WHERE 
-                                            SESSIONID = %s;""" % SessionID)
+                                            USERSESSIONS_INDEX = %s;""" % USERSESSIONS_INDEX)
         return dto[0]["LANG_ANSWER"]
 
     def getPrompt(self,questionLanguage):
@@ -59,19 +59,19 @@ class dupiebase():
                                             `LANGUAGE` = '%s';""" % questionLanguage)
         return dto[0]
 
-    def getCheckAnswer(self,UID,sessionID,questionIndex):
+    def getCheckAnswer(self,UID,USERSESSIONS_INDEX,questionIndex):
         dto = self.connector.query("""SELECT 
-                                            ANSWERS.QUIZQUESTION_INDEX, ANSWERS.ANSWER, QUESTIONS.ANSWER, ANSWERS.QUIZANSWER_INDEX
+                                            ANSWERS.QUIZQUESTION_NUMBER, ANSWERS.ANSWER, QUESTIONS.ANSWER, ANSWERS.QUIZANSWER_NUMBER
                                         FROM 
                                             QUESTIONS
                                         LEFT JOIN ANSWERS ON 
                                                 ANSWERS.ANSWER=QUESTIONS.ANSWER 
-                                            and ANSWERS.SESSIONID=QUESTIONS.SESSIONID 
-                                            and QUESTIONS.QUIZQUESTION_INDEX=ANSWERS.QUIZQUESTION_INDEX 
+                                            and ANSWERS.USERSESSIONS_INDEX=QUESTIONS.USERSESSIONS_INDEX 
+                                            and QUESTIONS.QUIZQUESTION_NUMBER=ANSWERS.QUIZQUESTION_NUMBER 
                                         where 
                                                 ANSWERS.SHUFFLE=0 
                                             and QUESTIONS.UID=%s 
-                                            and QUESTIONS.SESSIONID=%s 
-                                            and QUESTIONS.QUIZQUESTION_INDEX=%s;""" % (UID,sessionID,questionIndex))
+                                            and QUESTIONS.USERSESSIONS_INDEX=%s 
+                                            and QUESTIONS.QUIZQUESTION_NUMBER=%s;""" % (UID,USERSESSIONS_INDEX,questionIndex))
 
-        return dto[0]["QUIZANSWER_INDEX"]  
+        return dto[0]["QUIZANSWER_NUMBER"]  
