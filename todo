@@ -15,6 +15,7 @@ Majors:
     * load first question
     * TBD
 * Add Russian
+* Restart database connection when it fails
 
 minors:
 * extend base template to all jinja2 pages
@@ -24,6 +25,10 @@ minors:
 * put the cookie key somewhere else 
 * * and .gitignore it when I do.
 * figure out how to import a folder at a time and reference it
+* hide the cookies key and change cookies password
+* add cookies disclaimer
+
+
 
 future:
 * setup ldap service

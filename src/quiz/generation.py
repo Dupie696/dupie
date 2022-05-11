@@ -61,7 +61,7 @@ class QuizGeneration():
             "ANSWERLANGUAGE": answerlanguage
             }
         dto = (
-            self.connector.query("SELECT VOCABULARY_INDEX, %(QUESTIONLANGUAGE)s ""QUESTION"", %(ANSWERLANGUAGE)s ""ANSWER"" FROM DUPIE.VOCABULARY WHERE VOCABULARY_INDEX = SYNONYM AND %(QUESTIONLANGUAGE)s<>'' AND %(ANSWERLANGUAGE)s<>'';" % xdto )
+            self.connector.query("SELECT VOCABULARY_INDEX, %(QUESTIONLANGUAGE)s ""QUESTION"", %(ANSWERLANGUAGE)s ""ANSWER"" FROM DUPIE.VOCABULARY WHERE %(QUESTIONLANGUAGE)s<>'' AND %(ANSWERLANGUAGE)s<>'';" % xdto )
         )
 
         for x in range(0, len(dto)):
@@ -94,6 +94,7 @@ class QuizGeneration():
         import copy
         _lexicon = copy.deepcopy(self.getLexiconETL(questionlanguage,answerlanguage))
         while numberofQuestions > len(_lexicon):
+            print ("---")
             _lexicon = _lexicon + copy.deepcopy(self.getLexiconETL(questionlanguage,answerlanguage))
         random.shuffle(_lexicon)
         _lexicon = _lexicon[:numberofQuestions]

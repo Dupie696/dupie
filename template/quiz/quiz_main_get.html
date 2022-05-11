@@ -17,9 +17,20 @@
             <table class="QuestionBox" onclick={{questionOnClick}}>
                 <tr>
                     <td>
-                        {{DTO.prompt.PRE}} 
-                        {{DTO.question.QUESTION}}
-                        {{DTO.prompt.POST}} 
+                        <table >
+                            <tr>
+                                <td>
+                                    {{DTO.prompt.PRE}} 
+                                </td>
+                                <td border="10px" border-style="solid" bgcolor="black">
+                                    {{DTO.question.QUESTION}}
+                                </td>
+                                <td>
+                                    {{DTO.prompt.POST}} 
+                                </td>
+                            </tr>
+                        </table>
+
 
                     </td>
                 </tr>
@@ -59,11 +70,10 @@
     </tr>
 </table>
 <BR>
-    {{DTO.gamecomplete}}
     {%- if DTO.gamecomplete == "False" %}
-<a href="{{DTO.nexttarget}}">{{DTO.nexttarget}}</a>
+<a href="{{DTO.nexttarget}}">Next</a>
 {%- else %}
-<a href="/quiz">/quiz</a>
+<a href="/quiz">Back to Quiz List</a>
 
 {%- endif %}
 {% endblock %}

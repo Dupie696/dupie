@@ -41,8 +41,8 @@ class QuizWebpagesClass():
             return "False"
 
     def NewQuizPage(self):
-        USERSESSIONS_INDEX = self.generateQuiz_Session(101,"EN","ES",10,9)
-        self.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,10,9, "EN","ES")
+        USERSESSIONS_INDEX = self.generateQuiz_Session(101,"EN","ES",12,9)
+        self.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,12,9, "EN","ES")
 
         # USERSESSIONS_INDEX = self.generateQuiz_Session(101,"EN","AR",10,9)
         # self.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,10,9, "EN","AR")

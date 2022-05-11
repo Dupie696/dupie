@@ -32,8 +32,6 @@ class WSGIToolsClass():
             self.bottle.response.set_header('Cache-Control', 'must-revalidate')
         else:
 #            self.bottle.response.set_header("Cache-Control", "public, max-age=604800")
-            print (filename[-3:])
-            print (folder)
             print (filename)
 
         # TODO: this probably isn't necessary, but will put regex here
