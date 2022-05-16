@@ -1,5 +1,7 @@
 import jinja2
 secret="dupiedupiedupie!Ana!Duppy!DyppyDyppyDuppy!"
+import os.path
+
 
 
 class WSGIToolsClass():
@@ -36,6 +38,11 @@ class WSGIToolsClass():
 
         # TODO: this probably isn't necessary, but will put regex here
         #   if filename in ["aquabutton.jpg","nh1.mp3","questionbox.jpg"]:
+        if (folder=="vocab"):
+            if (os.path.isfile("/var/www/wsgi/dupie/resource/%sx/%s" % (folder,filename))):
+                return self.bottle.static_file(filename, root='/var/www/wsgi/dupie/resource/%sx' % (folder))
+
+            
         return self.bottle.static_file(filename, root='/var/www/wsgi/dupie/resource/%s' % (folder))
         #   else:
         #      return bottle.abort(404, "File not found.")

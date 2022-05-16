@@ -21,7 +21,15 @@ class mysql_database_connector():
             self.conn.connector.close()
 
     def query(self,query):
-        sql_cursor = self.conn.cursor()
+        try:
+            sql_cursor = self.conn.cursor()
+        except mysql.connector.errors.OperationalError as err: 
+            #raise BaseException("mysql_database connection was disconnected, we need to reconnect!: \n {}".format(err))
+            print("mysql_database connection was disconnected, we need to reconnect!")
+            self.__init__()
+            print("mysql_database connection was disconnected, we need to reconnect!")
+
+
         sql_cursor.execute(query)
         sql_field_names = [i[0] for i in sql_cursor.description]
 
