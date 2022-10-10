@@ -3,3 +3,6 @@ secret/*
 resource/video/*
 resource/vocabx/*.mp3
 resource/vocabx/*.wav
+resource/promptx/*.mp3
+resource/promptx/*.wav
+sandbox/*
