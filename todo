@@ -4,6 +4,11 @@ Done:
 - figure out how to leverage super() to put all the bottle decorators in the same class as they belong too.
 - figure out how to do check authenication using a decorator
 
+
+New:
+ - restart the SQL connector
+ - create new quiz forum.
+
 Today:
 -standardize inherited jinja2 templates
 
