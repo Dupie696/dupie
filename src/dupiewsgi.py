@@ -3,6 +3,7 @@ import website.tools
 import website.quiz
 import quiz.database
 import quiz.generation
+import website.ttsbatchload
 
 class DupieWSGI(
     quiz.generation.QuizGeneration,
@@ -10,7 +11,9 @@ class DupieWSGI(
     website.tools.CheckAuthClass,
     website.videos.VideoWebpagesClass,
     website.quiz.QuizWebpagesClass,
-    website.tools.WSGIToolsClass):
+    website.tools.WSGIToolsClass,
+    website.ttsbatchload.ttsBatchLoad
+    ):
 
     def __init__(self,bottle):
         self.bottle = bottle
@@ -25,7 +28,7 @@ if __name__ == "__main__":
     # x = a.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,3,3, "EN","ES")
     #x = a.makeMeAQuiz_Answers(1003, 1, 1003,3,"EN","ES")
     print ("starting")
-    a.NewQuizPage()
-    import pprint
+    #a.NewQuizPage()
+    #import pprint
     # print (pprint.pformat(x))
     # print ("USERSESSIONS_INDEX %s" % USERSESSIONS_INDEX)

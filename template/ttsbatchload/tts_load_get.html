@@ -1,0 +1,16 @@
+{% extends "dupie_template.html" %}
+{% block content %}
+<H1>BATCH LOAD!</H1>
+<BR>
+    <form method="post" action="/ttsbatchload" enctype="multipart/form-data" name="main">
+
+    <textarea rows="30" cols="33" id="INDEX" name="INDEX"></textarea>
+    <textarea rows="30" cols="33" id="VOCAB1" name="VOCAB1"></textarea>
+    <textarea rows="30" cols="33" id="VOCAB2" name="VOCAB2"></textarea>
+<BR><BR>
+
+<input type="submit" name="Save" value="Submit" />
+
+{% endblock %}
+
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea
