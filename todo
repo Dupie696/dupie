@@ -1,3 +1,14 @@
+Oct 16:
+
+Todo:
+ - finish vocabulary loader
+ - create vbs audio generator
+ - data cleaner needs to be setup on everything
+
+ideas:
+ - create pre-quiz stuffy summary of questions (Unique the quiz questions, and join on that)
+
+==================
 Done:
 - refactored classes structures
 - used inheritance to break things up (multiple layers of abstruction was too tedious!)

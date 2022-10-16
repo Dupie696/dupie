@@ -12,7 +12,7 @@ class DupieWSGI(
     website.videos.VideoWebpagesClass,
     website.quiz.QuizWebpagesClass,
     website.tools.WSGIToolsClass,
-    website.ttsbatchload.ttsBatchLoad
+    website.ttsbatchload.ttsBatchLoadWeb
     ):
 
     def __init__(self,bottle):

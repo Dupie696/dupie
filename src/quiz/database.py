@@ -6,6 +6,16 @@ class dupiebase():
 
         super().__init__()
 
+    def dtocleaner(self, xdto):
+        for idx, mylist in enumerate(xdto):
+            for k, v in mylist.items():
+                if isinstance(v, str):
+                    if v.find('"')!=-1:
+                        xdto[idx][k] = v.replace('"',r'\"')
+                    if v.find("'")!=-1:
+                        xdto[idx][k] = v.replace("'",r"\'")
+        return xdto
+
 
 
     def getAllSessionInfo(self,UID):
