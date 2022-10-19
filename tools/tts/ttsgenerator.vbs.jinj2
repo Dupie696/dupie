@@ -1,7 +1,3 @@
-' This could be a template to generate files
-' then you just upload the .wavs and it could
-' just convert and load everything.
-
 Set Lang1Voice = CreateObject("SAPI.SpVoice")
 Set Lang1FileStream = CreateObject("SAPI.SpFileStream")
 Set Lang2Voice = CreateObject("SAPI.SpVoice")
@@ -10,28 +6,27 @@ Set Lang2FileStream = CreateObject("SAPI.SpFileStream")
 const SSFMCreateForWrite = 3
 const SVSFDefault = 0
 
-dim lang0index(3)
-dim lang1words(3)
-dim lang2words(3)
-lang0index(0) = 1100
-lang1words(0) = "Welcome Home"
-lang2words(0) = "Bienvenido a casa"
-lang0index(0) = 1101
-lang1words(1) = "Where are you?"
-lang2words(1) = "¿Donde está?"
-lang0index(0) = 1102
-lang1words(2) = "What are you doing?"
-lang2words(2) = "¿Que estas haciendo?"
-lang1speaker = 0 ' English
-lang2speaker = 2 ' Spanish
-lang1code = "EN"
-lang2code = "ES"
-lang1rate = 0.5
-lang2rate = 0.5
+dim lang0index({{dto.lang1words|length}})
+dim lang1words({{dto.lang1words|length}})
+dim lang2words({{dto.lang1words|length}})
+
+{%- for lcv in range(dto.lang1words|length) %}
+
+lang1words({{lcv}}) = "{{ dto.lang1words[lcv] }}"
+lang2words({{lcv}}) = "{{ dto.lang2words[lcv] }}"
+lang0index({{lcv}}) = {{ dto.lang0index[lcv] }}
+
+{%- endfor %}
+lang1speaker = {{ dto.lang1speaker }}
+lang2speaker = {{ dto.lang2speaker }}
+lang1code = "{{ dto.lang1code }}"
+lang2code = "{{ dto.lang2code }}"
+lang1rate = {{ dto.lang1rate }}
+lang2rate = {{ dto.lang2rate }}
 
 for lcv = 0 to ubound(lang0index) - 1
-    Lang1FileStream.Open "G:\Dupie\" & lcv & "-" & lang1code & ".wav", SSFMCreateForWrite, False
-    Lang2FileStream.Open "G:\Dupie\" & lcv & "-" & lang2code & ".wav", SSFMCreateForWrite, False
+    Lang1FileStream.Open "G:\Dupie\" & lang0index(lcv) & "-" & lang1code & ".wav", SSFMCreateForWrite, False
+    Lang2FileStream.Open "G:\Dupie\" & lang0index(lcv) & "-" & lang2code & ".wav", SSFMCreateForWrite, False
 
     Set Lang1Voice.AudioOutputStream = Lang1FileStream
     Set Lang1Voice.Voice = Lang1Voice.GetVoices.Item(lang1speaker)
