@@ -4,6 +4,12 @@
 '# Running this script will allow you to test all your 
 '# installed voices, intended to be used with gneration 
 '# script
+'#
+'#
+'#  NOTE: VBS does not support UTF-8. This file will need
+'#        to be saved in UTF-16 or UTF-16 LE to support
+'#        unicode characters fr different languages
+'#
 '#########################################################
 
 

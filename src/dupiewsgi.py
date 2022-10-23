@@ -4,15 +4,17 @@ import website.quiz
 import quiz.database
 import quiz.generation
 import website.ttsbatchload
+import website.review
 
 class DupieWSGI(
+    website.review.ReviewWebpageClass,
     quiz.generation.QuizGeneration,
     quiz.database.dupiebase,
     website.tools.CheckAuthClass,
     website.videos.VideoWebpagesClass,
     website.quiz.QuizWebpagesClass,
     website.tools.WSGIToolsClass,
-    website.ttsbatchload.ttsBatchLoadWeb
+    website.ttsbatchload.ttsBatchLoadWeb,
     ):
 
     def __init__(self,bottle):
@@ -28,7 +30,7 @@ if __name__ == "__main__":
     # x = a.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,3,3, "EN","ES")
     #x = a.makeMeAQuiz_Answers(1003, 1, 1003,3,"EN","ES")
     print ("starting")
-    #a.NewQuizPage()
+    a.NewQuizPage()
     #import pprint
     # print (pprint.pformat(x))
     # print ("USERSESSIONS_INDEX %s" % USERSESSIONS_INDEX)

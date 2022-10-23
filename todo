@@ -1,12 +1,29 @@
+Oct 22:
+
+Todo:
+ - <DONE> Make apache restart with cron
+ - create a new quiz generation forum
+ - figure out SLAPD for accounts
+ - fix firewall
+
+
+integer routing? need to test it out.
+https://bottlepy.org/docs/dev/routing.html
+
+
+This project is getting to a point that it needs a revision
+
+======================
 Oct 16:
 
 Todo:
- - finish vocabulary loader
- - create vbs audio generator
- - data cleaner needs to be setup on everything
+ - <DONE> finish vocabulary loader
+ - <DONE> create vbs audio generator
+ - <DONE> data cleaner needs to be setup on everything
+
 
 ideas:
- - create pre-quiz stuffy summary of questions (Unique the quiz questions, and join on that)
+ - <DONE> create pre-quiz stuffy summary of questions (Unique the quiz questions, and join on that)
 
 ==================
 Done:

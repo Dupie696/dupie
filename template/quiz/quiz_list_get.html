@@ -23,6 +23,9 @@
         <th>
             Choices
         </th>
+        <th>
+            Review
+        </th>
     </tr>
 {%- for mySession in DTO.AllSessionInfo %}
 
@@ -45,6 +48,11 @@
         <td>
             {{mySession.ANSWERS}}
         </td>
+        <td>
+            <a href="quiz/review/{{mySession.UID}}/{{mySession.USERSESSIONS_INDEX}}/">REVIEW</a>
+            
+        </td>
+
     </tr>
 {%- endfor %}
 

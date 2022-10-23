@@ -62,6 +62,7 @@ class QuizGeneration():
             }
         dto = (
 #            self.connector.query("SELECT VOCABULARY_INDEX, %(QUESTIONLANGUAGE)s ""QUESTION"", %(ANSWERLANGUAGE)s ""ANSWER"" FROM DUPIE.VOCABULARY WHERE %(QUESTIONLANGUAGE)s<>'' AND %(ANSWERLANGUAGE)s<>'';" % xdto )
+#            self.connector.query("SELECT VOCABULARY_INDEX, %(QUESTIONLANGUAGE)s ""QUESTION"", %(ANSWERLANGUAGE)s ""ANSWER"" FROM DUPIE.VOCABULARY WHERE %(QUESTIONLANGUAGE)s<>'' AND %(ANSWERLANGUAGE)s<>'' and VOCABULARY_INDEX > 1099;" % xdto )
             self.connector.query("SELECT VOCABULARY_INDEX, %(QUESTIONLANGUAGE)s ""QUESTION"", %(ANSWERLANGUAGE)s ""ANSWER"" FROM DUPIE.VOCABULARY WHERE %(QUESTIONLANGUAGE)s<>'' AND %(ANSWERLANGUAGE)s<>'';" % xdto )
         )
 
@@ -93,7 +94,7 @@ class QuizGeneration():
     def makeMeAQuiz_Questions(self,UID,USERSESSIONS_INDEX,numberofQuestions,numberofAnswers,questionlanguage,answerlanguage):
         import random
         import copy
-        _lexicon = copy.deepcopy(self.getLexiconETL(questionlanguage,answerlanguage))
+        _lexicon = self.dtocleaner(copy.deepcopy(self.getLexiconETL(questionlanguage,answerlanguage)))
         while numberofQuestions > len(_lexicon):
             print ("---")
             _lexicon = _lexicon + copy.deepcopy(self.getLexiconETL(questionlanguage,answerlanguage))

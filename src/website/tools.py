@@ -72,7 +72,8 @@ class WSGIToolsClass():
                 "/var/www/wsgi/dupie/template/tools",
                 "/var/www/wsgi/dupie/template/templates",
                 "/var/www/wsgi/dupie/template/videos",
-                "/var/www/wsgi/dupie/template/ttsbatchload"
+                "/var/www/wsgi/dupie/template/ttsbatchload",
+                "/var/www/wsgi/dupie/template/review"
             ]
             
             )

@@ -1,0 +1,49 @@
+{% extends "dupie_template.html" %}
+{% block content %}
+{% block library %}
+    <script type="text/javascript" src="/resource/html/quiz2.js"></script>
+{% endblock %}
+
+
+
+
+
+
+<H1>Review your Quiz!!</H1>
+
+<table class="ReviewTable">
+
+    <tr>
+        <th>
+            #
+        </th>
+        <th>
+            Question
+        </th>
+        <th>
+            Answer
+        </th>
+    </tr>
+
+    {% for row in DTO.dto %}
+    <tr>
+        <td>
+            {{loop.index}}
+        </td>
+    
+        <td onclick="selectReview('{{row.QUESTION_AUDIO}}')">
+
+            {{ row.QUESTION }}
+
+        </td>
+        <td onclick="selectReview('{{row.ANSWER_AUDIO}}')">
+
+            {{ row.ANSWER }}
+
+        </td>
+    </tr>
+    {%endfor %}
+
+</table>
+
+{% endblock %}

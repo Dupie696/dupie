@@ -45,3 +45,9 @@ function selectAnswer(ID,soundAnswer){
         document.getElementById("answer" + ID).className = "AnswerButtonWRONG";
     }}
 
+function selectReview(soundFile){
+    var sndFile = new Audio('/resource/vocab/' + soundFile);
+    sndFile.playbackRate = 0.5;
+    sndFile.play();
+
+    }

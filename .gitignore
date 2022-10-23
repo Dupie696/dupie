@@ -6,3 +6,6 @@ resource/vocabx/*.wav
 resource/promptx/*.mp3
 resource/promptx/*.wav
 sandbox/*
+tools/tts/wavfiles/*
+tools/tts/loadWavs.py
+tools/tts/updateVocab.py

@@ -120,3 +120,16 @@ body {
   white-space: nowrap;
   color: black;
 }
+
+
+.ReviewTable th{
+  background-color: rgb(200, 100, 0);
+  white-space: nowrap;
+  color: white;
+  padding: 20px;
+}
+.ReviewTable tr{
+  background-color: rgb(255, 240, 220);
+  white-space: nowrap;
+  color: black;
+}

@@ -51,6 +51,18 @@ class dupiebase():
                                         and QUIZQUESTION_NUMBER = %s;""" % (USERSESSIONS_INDEX, QuestionIndex))
         return dto[0]
 
+
+
+    def getReviewQuestion(self,USERSESSIONS_INDEX):
+        dto = self.connector.query("""SELECT 
+                                            QUESTIONS_INDEX, USERSESSIONS_INDEX, UID, QUESTION, QUESTION_AUDIO, ANSWER, ANSWER_AUDIO, VOCABULARY_INDEX, QUIZQUESTION_NUMBER
+                                    FROM 
+                                        DUPIE.QUESTIONS
+                                    where 
+                                            USERSESSIONS_INDEX = %s;""" % (USERSESSIONS_INDEX))
+        return dto
+
+
     def getAnswerLanguage(self,USERSESSIONS_INDEX):
         dto = self.connector.query("""SELECT 
                                             LANG_ANSWER
