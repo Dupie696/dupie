@@ -57,7 +57,7 @@ class ttsBatchLoad():
     def getTTSTemplate(self, document):
         file_loader = jinja2.FileSystemLoader(
             [
-                "/var/www/wsgi/dupie/tools/tts/"
+                "/var/www/wsgi/dupie/template/ttsbatchload"
             ]
             
             )
@@ -108,6 +108,7 @@ class ttsBatchLoadWeb(ttsBatchLoad):
     def __init__(self):
         self.bottle.route("/ttsbatchload")      (self.checkAuth(self.GET_ttsBatchLoadPage))
         self.bottle.post("/ttsgenerator.vbs")       (self.checkAuth(self.POST_ttsBatchLoadPage))
+        self.bottle.route("/ttssoundtest.vbs")       (self.checkAuth(self.FILE_ttsSoundTest))
         super().__init__()
 
 
@@ -117,6 +118,11 @@ class ttsBatchLoadWeb(ttsBatchLoad):
                 DTO={ "username":self.cookie("username")},
                 BreadCrumbs=[]
                 )
+
+    def FILE_ttsSoundTest(self):
+        self.bottle.response.set_header('Content-Type', 'application/vbs')
+        self.bottle.response.set_header('Accept-Ranges', 'bytes')
+        return self.getTemplate('ttsSoundTest.vbs').render().encode('utf-16le')
 
     def POST_ttsBatchLoadPage(self):
         index = self.bottle.request.forms.get("INDEX")

@@ -1,7 +1,11 @@
 {% extends "dupie_template.html" %}
 {% block content %}
-<H1>BATCH LOAD!</H1>
+<H1>TTS Batch Generator!</H1>
+
+Note: this does not insert into the database. This only makes the sound files.
 <BR>
+    Fields are: Index, Lang1, Lang2
+    <BR><BR>
     <form method="post" action="/ttsgenerator.vbs" enctype="multipart/form-data" name="main">
 
     <textarea rows="30" cols="33" id="INDEX" name="INDEX"></textarea>
