@@ -40,19 +40,25 @@ class QuizWebpagesClass():
         else:
             return "False"
 
+
     def NewQuizPage(self):
-        choices = 6
-        questions =12 
-        USERSESSIONS_INDEX = self.generateQuiz_Session(101,"EN","RU",questions,choices)
-        self.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,questions,choices, "EN","RU")
+        return self.getTemplate('quiz_new_get.html').render(
+                DTO={"languages":self.getListofLanguages()},
+                BreadCrumbs=[{"Quizzes":"/quiz"},{"New Quiz":"/quiz/newquiz"}]
+                )
 
-        # USERSESSIONS_INDEX = self.generateQuiz_Session(101,"EN","AR",10,9)
-        # self.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,10,9, "EN","AR")
+        # choices = 6
+        # questions =12 
+        # USERSESSIONS_INDEX = self.generateQuiz_Session(101,"EN","RU",questions,choices)
+        # self.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,questions,choices, "EN","RU")
 
-        # USERSESSIONS_INDEX = self.generateQuiz_Session(101,"EN","KO",10,9)
-        # self.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,10,9, "EN","KO")
+        # # USERSESSIONS_INDEX = self.generateQuiz_Session(101,"EN","AR",10,9)
+        # # self.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,10,9, "EN","AR")
 
-        # USERSESSIONS_INDEX = self.generateQuiz_Session(101,"EN","RU",10,9)
-        # self.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,10,9, "EN","RU")
+        # # USERSESSIONS_INDEX = self.generateQuiz_Session(101,"EN","KO",10,9)
+        # # self.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,10,9, "EN","KO")
 
-        return """<meta http-equiv="refresh" content="1;url=/quiz/101/%s/0/" />""" % str(USERSESSIONS_INDEX) + str(USERSESSIONS_INDEX)
+        # # USERSESSIONS_INDEX = self.generateQuiz_Session(101,"EN","RU",10,9)
+        # # self.makeMeAQuiz_Questions(101,USERSESSIONS_INDEX,10,9, "EN","RU")
+
+        # return """<meta http-equiv="refresh" content="1;url=/quiz/101/%s/0/" />""" % str(USERSESSIONS_INDEX) + str(USERSESSIONS_INDEX)

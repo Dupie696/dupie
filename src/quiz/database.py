@@ -97,3 +97,15 @@ class dupiebase():
                                             and QUESTIONS.QUIZQUESTION_NUMBER=%s;""" % (UID,USERSESSIONS_INDEX,questionIndex))
 
         return dto[0]["QUIZANSWER_NUMBER"]  
+
+    def getListofLanguages(self):
+        dto = self.connector.query("""
+                                    SHOW COLUMNS
+                                        FROM DUPIE.VOCABULARY
+                                        where LENGTH(FIELD) = 2;
+                                    """)
+        
+        return sorted([x["Field"] for x in dto])
+
+
+

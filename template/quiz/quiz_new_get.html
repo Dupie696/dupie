@@ -1,0 +1,40 @@
+{% extends "dupie_template.html" %}
+{% block content %}
+
+<H1>Create new custom quiz</H1>
+
+
+<form method="post" action="/quiz/newquiz" enctype="multipart/form-data">
+
+    <label for="lang1">What is your native language?:</label>
+
+    <select name="lang1" id="lang1">
+        {% for language in DTO.languages %}
+      <option value="{{language}}">{{language}}</option>
+      {% endfor %}
+    </select>
+
+    <BR><BR><label for="lang2">What language are you learning?:</label>
+
+    <select name="lang2" id="lang2">
+        {% for language in DTO.languages %}
+      <option value="{{language}}">{{language}}</option>
+      {% endfor %}
+    </select>
+
+
+    <BR><BR><label for="questions">How long would you like the quiz?:</label>   <input type="range" min="1" max="100" value="10">
+
+
+    <BR><BR><label for="Answers">How many choices would you like for each question?:</label>   <input type="range" min="1" max="12" value="6">
+
+
+    <BR><BR><label for="Lexicon">Which vocabulary set would you like to use?:</label>
+
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>
+
+  
+{% endblock %}
+
